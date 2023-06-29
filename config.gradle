@@ -1,0 +1,99 @@
+ext {
+    //android开发版本配置
+    android = [
+            compileSdkVersion: 33,
+            buildToolsVersion: "31.0.0",
+            applicationId    : "com.aregyan.github",
+            minSdkVersion    : 26,
+            targetSdkVersion : 33,
+            versionCode      : 1,
+            versionName      : "1.0",
+    ]
+    //version配置
+    versions = [
+            "junit-version"     : "4.13.2",
+
+            "gradle_version"    : "7.3.1",//gradle插件版本
+            "kotlin_version"    : "1.7.20",//kotlin插件版本
+            "hilt_version"      : '2.38.1',//hilt插件以及hlit依赖库版本
+            "moshi_version"     : '1.14.0',
+            "room_version"      : '2.4.3',
+            "nav_version"       : '2.5.3',//jetpack组件navigation插件以及navigation依赖库版本
+            "coroutines_version": '1.6.4',
+            "glide_version"     : '4.14.2',
+    ]
+    //plugin插件配置
+    plugin = [
+            //gradle插件：作用于android开发
+            "buildGradle"     : "com.android.tools.build:gradle:${versions["gradle_version"]}",
+            //gradle构建koltin插件
+            "kotlinGradle"    : "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions["kotlin_version"]}",
+            //gradle构建hilt插件
+            "hiltGradle"      : "com.google.dagger:hilt-android-gradle-plugin:${versions["hilt_version"]}",
+            //gradle构建Navigation插件
+            "navigationGradle": "androidx.navigation:navigation-safe-args-gradle-plugin:${versions["nav_version"]}",
+    ]
+
+    //support配置
+    support = [
+            //google支持的各种UI组件
+            "material"                : 'com.google.android.material:material:1.7.0',
+            // Coroutines
+            "kotlinxCoroutines"       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions["coroutines_version"]}",
+            "kotlinxCoroutinesAndroid": "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions["coroutines_version"]}",
+
+            'junit'                   : "junit:junit:${versions["junit-version"]}",
+    ]
+
+    //androidx插件
+    jetpack = [
+            "coreKtx"              : "androidx.core:core-ktx:1.9.0",
+            "appcompat"            : "androidx.appcompat:appcompat:1.5.1",
+            "constraintlayout"     : 'androidx.constraintlayout:constraintlayout:2.1.4',
+            "navigationFragmentKtx": "androidx.navigation:navigation-fragment-ktx:${versions["nav_version"]}",
+            "navigationUiKtx"      : "androidx.navigation:navigation-ui-ktx:${versions["nav_version"]}",
+
+            //Room
+            "roomRuntime"          : "androidx.room:room-runtime:${versions["room_version"]}",
+            "roomCompiler"         : "androidx.room:room-compiler:${versions["room_version"]}",
+            // optional - Kotlin Extensions and Coroutines support for Room
+            "roomKtx"              : "androidx.room:room-ktx:${versions["room_version"]}"
+    ]
+
+    //依赖第三方配置
+    dependencies = [
+            // Hilt
+            "hiltAndroid"                    : "com.google.dagger:hilt-android:${versions["hilt_version"]}",
+            "hiltCompiler"                   : "com.google.dagger:hilt-compiler:${versions["hilt_version"]}",
+
+            //okhttp
+            "okhttpBom"                      : "com.squareup.okhttp3:okhttp-bom:4.9.0",//bom的作用是帮助您实时更新 OkHttp 版本进而保证OkHttp的兼容性
+            "okhttp"                         : "com.squareup.okhttp3:okhttp",
+            "okhttpLogginInterceptor"        : "com.squareup.okhttp3:logging-interceptor",
+
+            //retorfit
+            "retrofit"                       : 'com.squareup.retrofit2:retrofit:2.9.0',
+            "retrofitKotlinCoroutinesAdapter": 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2',
+            "retrofitConverterMoshi"         : 'com.squareup.retrofit2:converter-moshi:2.9.0',
+
+            //moshi:
+            // 在java中我们经常使用Gson、FastJson 来实现序列化和反序列化，由于kotlin的一些新特性以上框架不支持，所以才有了Moshi的诞生
+            //参考：https://www.jianshu.com/p/50ad048a4b59
+            "moshiKotlinCodeGen"             : "com.squareup.moshi:moshi-kotlin-codegen:${versions["moshi_version"]}",
+            "moshi"                          : "com.squareup.moshi:moshi:${versions["moshi_version"]}",
+            "moshiKotlin"                    : "com.squareup.moshi:moshi-kotlin:${versions["moshi_version"]}",
+            "moshiAdapters"                  : "com.squareup.moshi:moshi-adapters:${versions["moshi_version"]}",
+
+            //glide
+            "glide": "com.github.bumptech.glide:glide:${versions["glide_version"]}",
+            "glideCompiler": "com.github.bumptech.glide:compiler:${versions["glide_version"]}",
+
+            //日志
+            "timber" : 'com.jakewharton.timber:timber:5.0.1',
+
+            //Leak Canary内存泄漏
+            "leakcanary" :'com.squareup.leakcanary:leakcanary-android:2.7',
+    ]
+}
+
+

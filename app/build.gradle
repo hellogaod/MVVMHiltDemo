@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'//当前模块可以使用kotlin语言
+    id 'kotlin-kapt'//当前模块可以使用kapt替代annotationProcessor
+    id 'dagger.hilt.android.plugin'//当前模块使用hilt插件
+    id 'androidx.navigation.safeargs.kotlin'//当前模块可以使用navigation插件
+    id 'kotlin-parcelize'//当前模块Kotlin使用Parcelable序列化类
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+    namespace 'com.aregyan.github'
+}
+
+dependencies {
+
+    implementation rootProject.ext.jetpack["coreKtx"]
+    implementation rootProject.ext.jetpack["appcompat"]
+    implementation rootProject.ext.jetpack["constraintlayout"]
+    implementation rootProject.ext.jetpack["navigationFragmentKtx"]
+    implementation rootProject.ext.jetpack["navigationUiKtx"]
+
+    //Room
+    implementation rootProject.ext.jetpack["roomRuntime"]
+    kapt rootProject.ext.jetpack["roomCompiler"]
+    implementation rootProject.ext.jetpack["roomKtx"]
+
+    implementation rootProject.ext.support["material"]
+
+    // Hilt
+    implementation rootProject.ext.dependencies["hiltAndroid"]
+    kapt rootProject.ext.dependencies["hiltCompiler"]
+
+    // Retrofit for networking
+    implementation(platform(rootProject.ext.dependencies["okhttpBom"]))
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["okhttpLogginInterceptor"]
+
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofitKotlinCoroutinesAdapter"]
+    implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
+
+    // Moshi
+    kapt rootProject.ext.dependencies["moshiKotlinCodeGen"]
+    implementation rootProject.ext.dependencies["moshi"]
+    implementation rootProject.ext.dependencies["moshiKotlin"]
+    implementation rootProject.ext.dependencies["moshiAdapters"]
+
+    // Coroutines
+    implementation rootProject.ext.support["kotlinxCoroutines"]
+    implementation rootProject.ext.support["kotlinxCoroutinesAndroid"]
+
+    // Glide
+    implementation rootProject.ext.dependencies["glide"]
+    kapt rootProject.ext.dependencies["glideCompiler"]
+
+    // Timber
+    implementation rootProject.ext.dependencies["timber"]
+
+    // Leak Canary
+    debugImplementation rootProject.ext.dependencies["leakcanary"]
+}
