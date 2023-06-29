@@ -1,4 +1,4 @@
-# MVVMHiltDemo
+# 前沿
 基于dagger-hilt、aac、hvvm-habit做的一套MVVM-hilt框架
 
 参考文献：
