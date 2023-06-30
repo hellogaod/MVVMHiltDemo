@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.aregyan.github.domain.UserDetails
 
+//表对象
 @Entity
 data class DatabaseUserDetails constructor(
     @PrimaryKey
@@ -14,6 +15,7 @@ data class DatabaseUserDetails constructor(
     val location: String
 )
 
+//bean对象
 fun DatabaseUserDetails.asDomainModel(): UserDetails {
     return UserDetails(
         user = user,
