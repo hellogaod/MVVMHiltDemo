@@ -1,6 +1,7 @@
 package com.aregyan.github.di
 
 import com.aregyan.github.BuildConfig
+import com.aregyan.github.network.DemoApiService
 import com.aregyan.github.network.UserDetailsService
 import com.aregyan.github.network.UserListService
 import dagger.Module
@@ -11,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -35,7 +37,8 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("https://api.github.com/")
+        //.baseUrl("https://api.github.com/")//mvvm-hilt的地址
+        .baseUrl("https://www.oschina.net/")//mvvm-habit的地址
         .client(okHttpClient)
         .build()
 
@@ -49,4 +52,8 @@ object NetworkModule {
     fun provideUserDetailsService(retrofit: Retrofit): UserDetailsService =
         retrofit.create(UserDetailsService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideDemoApiService(retrofit: Retrofit): DemoApiService =
+        retrofit.create(DemoApiService::class.java)
 }

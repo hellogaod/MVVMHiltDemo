@@ -89,4 +89,7 @@ dependencies {
 
     // Leak Canary
     debugImplementation rootProject.ext.dependencies["leakcanary"]
+
+    implementation project(path: ':mvvmhabit')
+
 }

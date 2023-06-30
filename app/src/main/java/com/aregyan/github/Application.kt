@@ -2,6 +2,7 @@ package com.aregyan.github
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import me.goldze.mvvmhabit.utils.Utils
 import timber.log.Timber
 
 @HiltAndroidApp
@@ -12,6 +13,8 @@ class Application : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        Utils.init(this);
     }
 
 }

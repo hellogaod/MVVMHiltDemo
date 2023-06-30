@@ -24,7 +24,7 @@
 
 2. suspend demo：
 
- - （1）用于UI更新的：
+ - （1）表示开启IO线程操作：
 
          init {
                //表示切换线程去请求数据 
@@ -47,6 +47,24 @@
         @GET("/repos/square/retrofit/stargazers")
         suspend fun getUserList(): List<NetworkUserListItem>
 
+ - （3）更新ui：
 
+       lifecycleScope.launch {
+         val posts = 🏹 retrofit.get<PostService>().fetchPosts();
+         // 由于在主线程，可以拿着 posts 更新 UI
+       }
 
+3. 可观察对象
 
+ - （1）参考地址：https://www.jianshu.com/p/3c5ecc330f84
+ - （2）当前案例：ObservableParcelable
+
+       ObservableBoolean
+       ObservableByte
+       ObservableChar
+       ObservableShort
+       ObservableInt
+       ObservableLong
+       ObservableFloat
+       ObservableDouble
+       ObservableParcelable
