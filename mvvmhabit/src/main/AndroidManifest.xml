@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.goldze.mvvmhabit">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+        <activity
+            android:name=".base.activity.ContainerActivity"
+            android:configChanges="orientation|keyboardHidden"></activity>
+    </application>
 </manifest>

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
         <activity
-            android:name="com.aregyan.github.MainActivity"
+            android:name="com.aregyan.github.views.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.aregyan.github.MainActivity"
+            android:configChanges="orientation|keyboardHidden"></activity>
     </application>
 
 </manifest>

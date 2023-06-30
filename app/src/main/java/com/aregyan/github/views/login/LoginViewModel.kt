@@ -4,9 +4,13 @@ import android.text.TextUtils
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.aregyan.github.repository.DemoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import me.goldze.mvvmhabit.base.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
 import me.goldze.mvvmhabit.binding.command.BindingCommand
 import me.goldze.mvvmhabit.binding.command.BindingConsumer
@@ -14,9 +18,9 @@ import me.goldze.mvvmhabit.bus.event.SingleLiveEvent
 import me.goldze.mvvmhabit.utils.ToastUtils
 import javax.inject.Inject
 
-
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val demoRepository: DemoRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(private val demoRepository: DemoRepository) :
+    BaseViewModel() {
 
     //用户名的绑定
     var userName = ObservableField(demoRepository.getUserName())
@@ -71,6 +75,19 @@ class LoginViewModel @Inject constructor(private val demoRepository: DemoReposit
         if (TextUtils.isEmpty(password.get())) {
             ToastUtils.showShort("请输入密码！");
             return;
+        }
+
+        viewModelScope.launch {
+            showDialog()
+            val todo = withContext(Dispatchers.IO) {
+                demoRepository.login()
+            }
+
+            todo.let {
+                dismissDialog()
+                userName.get()?.let { it -> demoRepository.saveUserName(it) }
+                password.get()?.let { it -> demoRepository.savePassword(it) }
+            }
         }
     }
 }

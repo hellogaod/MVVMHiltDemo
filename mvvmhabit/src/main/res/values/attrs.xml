@@ -1,0 +1,9 @@
+<resources>
+    <!--输入框焦点发生变化-->
+    <attr name="onFocusChangeCommand" format="reference" />
+
+    <!--view点击时-->
+    <attr name="onClickCommand" format="reference" />
+    <!--是否开启防过快点击，默认false-->
+    <attr name="isThrottleFirst" format="boolean" />
+</resources>
