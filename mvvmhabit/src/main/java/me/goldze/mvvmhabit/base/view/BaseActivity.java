@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.mvvmhabit.R;
 
 import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.Observer;
 
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel;
@@ -23,9 +25,10 @@ import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
  * 这里根据项目业务可以换成你自己熟悉的BaseActivity, 但是需要继承RxAppCompatActivity,方便LifecycleProvider管理生命周期
  */
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
-   /* protected V binding;
-    protected VM viewModel;
-    private int viewModelId;*/
+
+    protected ViewDataBinding dataBinding;
+    protected BaseViewModel baseViewModel;
+    private int _viewModelId;
     private MaterialDialog dialog;
 
     @Override
@@ -33,63 +36,55 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         super.onCreate(savedInstanceState);
         //页面接受的参数方法
         initParam();
-        //私有的初始化Databinding和ViewModel方法
-        initViewDataBinding(savedInstanceState);
+        this.dataBinding = initAndGetViewDataBinding();
+        this.baseViewModel = initBaseViewModel();
 
+        if (this.dataBinding == null) {
+
+            throw new IllegalArgumentException(getString(R.string.init_binding_error));
+        }
+
+        if (this.baseViewModel == null) {
+            throw new IllegalArgumentException(getString(R.string.init_viewmodel_error));
+        }
+
+        _viewModelId = initVariableId();
+
+        //关联ViewModel
+        this.dataBinding.setVariable(_viewModelId, baseViewModel);
+        //支持LiveData绑定xml，数据改变，UI自动会更新
+        this.dataBinding.setLifecycleOwner(this);
+
+        //私有的ViewModel与View的契约事件回调逻辑
+        registorUIChangeLiveDataCallBack();
+        //初始化view
+        initView();
         //页面数据初始化方法
         initData();
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
         initViewObservable();
         //注册RxBus
-        /*viewModel.registerRxBus();*/
+        baseViewModel.registerRxBus();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        /*if (viewModel != null) {
-            viewModel.removeRxBus();
+        if (baseViewModel != null) {
+            baseViewModel.removeRxBus();
         }
-        if(binding != null){
-            binding.unbind();
-        }*/
+        if (dataBinding != null) {
+            dataBinding.unbind();
+            dataBinding = null;
+        }
     }
 
-    /**
-     * 注入绑定
-     */
-    private void initViewDataBinding(Bundle savedInstanceState) {
-        //DataBindingUtil类需要在project的build中配置 dataBinding {enabled true }, 同步后会自动关联android.databinding包
-        /*binding = DataBindingUtil.setContentView(this, initContentView(savedInstanceState));
-        viewModelId = initVariableId();
-        viewModel = initViewModel();
-        if (viewModel == null) {
-            Class modelClass;
-            Type type = getClass().getGenericSuperclass();
-            if (type instanceof ParameterizedType) {
-                modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
-            } else {
-                //如果没有指定泛型参数，则默认使用BaseViewModel
-                modelClass = BaseViewModel.class;
-            }
-            viewModel = (VM) createViewModel(this, modelClass);
-        }
-        //关联ViewModel
-        binding.setVariable(viewModelId, viewModel);
-        //支持LiveData绑定xml，数据改变，UI自动会更新
-        binding.setLifecycleOwner(this);
-        //让ViewModel拥有View的生命周期感应
-        getLifecycle().addObserver(viewModel);
-        //注入RxLifecycle生命周期
-        viewModel.injectLifecycleProvider(this);*/
-    }
 
     //刷新布局
     public void refreshLayout() {
-        /*if (viewModel != null) {
-            binding.setVariable(viewModelId, viewModel);
-        }*/
+        if (baseViewModel != null) {
+            dataBinding.setVariable(_viewModelId, baseViewModel);
+        }
     }
 
 
@@ -97,23 +92,23 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * =====================================================================
      **/
     //注册ViewModel与View的契约UI回调事件
-    protected void registorUIChangeLiveDataCallBack(BaseViewModel viewModel) {
+    protected void registorUIChangeLiveDataCallBack() {
         //加载对话框显示
-        viewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
+        baseViewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String title) {
                 showDialog(title);
             }
         });
         //加载对话框消失
-        viewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
+        baseViewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 dismissDialog();
             }
         });
         //跳入新页面
-        viewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        baseViewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 Class<?> clz = (Class<?>) params.get(ParameterField.CLASS);
@@ -122,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             }
         });
         //跳入ContainerActivity
-        viewModel.getUC().getStartContainerActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        baseViewModel.getUC().getStartContainerActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 String canonicalName = (String) params.get(ParameterField.CANONICAL_NAME);
@@ -131,14 +126,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             }
         });
         //关闭界面
-        viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
+        baseViewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 finish();
             }
         });
         //关闭上一层
-        viewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
+        baseViewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 onBackPressed();
@@ -222,29 +217,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     }
 
-    /**
-     * 初始化根布局
-     *
-     * @return 布局layout的id
-     */
-   /* public abstract int initContentView(Bundle savedInstanceState);*/
-
-    /**
-     * 初始化ViewModel的id
-     *
-     * @return BR的id
-     */
-    /*public abstract int initVariableId();*/
-
-    /**
-     * 初始化ViewModel
-     *
-     * @return 继承BaseViewModel的ViewModel
-     */
-   /* public VM initViewModel() {
-        return null;
-    }*/
-
     @Override
     public void initData() {
 
@@ -255,4 +227,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     }
 
+    /**
+     * 初始化ViewModel的id
+     *
+     * @return BR的id
+     */
+    protected abstract int initVariableId();
+
+    protected abstract ViewDataBinding initAndGetViewDataBinding();
+
+    protected abstract BaseViewModel initBaseViewModel();
 }
