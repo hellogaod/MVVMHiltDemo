@@ -10,8 +10,7 @@ import androidx.lifecycle.Observer
 import com.aregyan.github.R
 import com.aregyan.github.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import me.goldze.mvvmhabit.base.BaseActivity
-
+import me.goldze.mvvmhabit.base.view.BaseActivity
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {

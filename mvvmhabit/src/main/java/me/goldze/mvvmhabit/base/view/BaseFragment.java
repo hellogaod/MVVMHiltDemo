@@ -1,72 +1,84 @@
-package me.goldze.mvvmhabit.base;
+package me.goldze.mvvmhabit.base.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
-import me.goldze.mvvmhabit.base.BaseViewModel.ParameterField;
+import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel;
+import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel.ParameterField;
 import me.goldze.mvvmhabit.base.activity.ContainerActivity;
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 
-
 /**
  * Created by goldze on 2017/6/15.
- * 一个拥有DataBinding框架的基Activity
- * 这里根据项目业务可以换成你自己熟悉的BaseActivity, 但是需要继承RxAppCompatActivity,方便LifecycleProvider管理生命周期
  */
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
-   /* protected V binding;
+public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends Fragment implements IBaseView {
+    protected V binding;
     protected VM viewModel;
-    private int viewModelId;*/
+    private int viewModelId;
     private MaterialDialog dialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //页面接受的参数方法
         initParam();
-        //私有的初始化Databinding和ViewModel方法
-        initViewDataBinding(savedInstanceState);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (viewModel != null) {
+            viewModel.removeRxBus();
+        }
+        if (binding != null) {
+            binding.unbind();
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //私有的初始化Databinding和ViewModel方法
+        initViewDataBinding();
+        //私有的ViewModel与View的契约事件回调逻辑
+        registorUIChangeLiveDataCallBack();
         //页面数据初始化方法
         initData();
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
         initViewObservable();
         //注册RxBus
-        /*viewModel.registerRxBus();*/
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        /*if (viewModel != null) {
-            viewModel.removeRxBus();
-        }
-        if(binding != null){
-            binding.unbind();
-        }*/
+        viewModel.registerRxBus();
     }
 
     /**
      * 注入绑定
      */
-    private void initViewDataBinding(Bundle savedInstanceState) {
-        //DataBindingUtil类需要在project的build中配置 dataBinding {enabled true }, 同步后会自动关联android.databinding包
-        /*binding = DataBindingUtil.setContentView(this, initContentView(savedInstanceState));
-        viewModelId = initVariableId();
+    private void initViewDataBinding() {
+        /*viewModelId = initVariableId();
         viewModel = initViewModel();
         if (viewModel == null) {
             Class modelClass;
@@ -79,7 +91,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             }
             viewModel = (VM) createViewModel(this, modelClass);
         }
-        //关联ViewModel
         binding.setVariable(viewModelId, viewModel);
         //支持LiveData绑定xml，数据改变，UI自动会更新
         binding.setLifecycleOwner(this);
@@ -89,19 +100,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         viewModel.injectLifecycleProvider(this);*/
     }
 
-    //刷新布局
-    public void refreshLayout() {
-        /*if (viewModel != null) {
-            binding.setVariable(viewModelId, viewModel);
-        }*/
-    }
-
-
     /**
      * =====================================================================
      **/
     //注册ViewModel与View的契约UI回调事件
-    protected void registorUIChangeLiveDataCallBack(BaseViewModel viewModel) {
+    protected void registorUIChangeLiveDataCallBack() {
         //加载对话框显示
         viewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
             @Override
@@ -138,14 +141,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
-                finish();
+                getActivity().finish();
             }
         });
         //关闭上一层
         viewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
-                onBackPressed();
+                getActivity().onBackPressed();
             }
         });
     }
@@ -155,7 +158,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             dialog = dialog.getBuilder().title(title).build();
             dialog.show();
         } else {
-            MaterialDialog.Builder builder = MaterialDialogUtils.showIndeterminateProgressDialog(this, title, true);
+            MaterialDialog.Builder builder = MaterialDialogUtils.showIndeterminateProgressDialog(getActivity(), title, true);
             dialog = builder.show();
         }
     }
@@ -172,7 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * @param clz 所跳转的目的Activity类
      */
     public void startActivity(Class<?> clz) {
-        startActivity(new Intent(this, clz));
+        startActivity(new Intent(getContext(), clz));
     }
 
     /**
@@ -182,7 +185,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * @param bundle 跳转所携带的信息
      */
     public void startActivity(Class<?> clz, Bundle bundle) {
-        Intent intent = new Intent(this, clz);
+        Intent intent = new Intent(getContext(), clz);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
@@ -205,7 +208,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * @param bundle        跳转所携带的信息
      */
     public void startContainerActivity(String canonicalName, Bundle bundle) {
-        Intent intent = new Intent(this, ContainerActivity.class);
+        Intent intent = new Intent(getContext(), ContainerActivity.class);
         intent.putExtra(ContainerActivity.FRAGMENT, canonicalName);
         if (bundle != null) {
             intent.putExtra(ContainerActivity.BUNDLE, bundle);
@@ -216,13 +219,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     /**
      * =====================================================================
      **/
-    @Override
-    public void initParam() {
 
+    //刷新布局
+    public void refreshLayout() {
+        if (viewModel != null) {
+            binding.setVariable(viewModelId, viewModel);
+        }
     }
 
     @Override
-    public void initView() {
+    public void initParam() {
 
     }
 
@@ -231,23 +237,23 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      *
      * @return 布局layout的id
      */
-   /* public abstract int initContentView(Bundle savedInstanceState);*/
+    public abstract int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     /**
      * 初始化ViewModel的id
      *
      * @return BR的id
      */
-    /*public abstract int initVariableId();*/
+    public abstract int initVariableId();
 
     /**
      * 初始化ViewModel
      *
      * @return 继承BaseViewModel的ViewModel
      */
-   /* public VM initViewModel() {
+    public VM initViewModel() {
         return null;
-    }*/
+    }
 
     @Override
     public void initData() {
@@ -255,8 +261,18 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
     @Override
+    public void initView() {
+
+    }
+
+    @Override
     public void initViewObservable() {
 
     }
+
+    public boolean isBackPressed() {
+        return false;
+    }
+
 
 }

@@ -1,12 +1,12 @@
-package com.aregyan.github.repository
+package com.aregyan.github.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.aregyan.github.database.UsersDatabase
-import com.aregyan.github.database.asDomainModel
-import com.aregyan.github.domain.UserDetails
-import com.aregyan.github.network.UserDetailsService
-import com.aregyan.github.network.model.asDatabaseModel
+import com.aregyan.github.data.database.UsersDatabase
+import com.aregyan.github.data.database.asDomainModel
+import com.aregyan.github.data.domain.UserDetails
+import com.aregyan.github.data.network.UserDetailsService
+import com.aregyan.github.data.network.model.asDatabaseModel
 import timber.log.Timber
 import javax.inject.Inject
 

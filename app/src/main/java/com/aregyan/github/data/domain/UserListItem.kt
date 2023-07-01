@@ -1,4 +1,4 @@
-package com.aregyan.github.domain
+package com.aregyan.github.data.domain
 
 data class UserListItem(
     val id: Int,

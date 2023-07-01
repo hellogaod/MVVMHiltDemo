@@ -1,4 +1,4 @@
-package com.aregyan.github.network.model;
+package com.aregyan.github.data.network.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

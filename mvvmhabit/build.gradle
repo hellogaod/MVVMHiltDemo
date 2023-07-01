@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'//当前模块可以使用kapt替代annotationProcessor
+    id 'kotlin-android'//当前模块可以使用kotlin语言
 }
 
 android {
@@ -52,6 +53,10 @@ dependencies {
     api(rootProject.ext.dependencies["material-dialogs-commons"]) {
         exclude group: 'com.android.support'
     }
+
+    // Glide
+    implementation rootProject.ext.dependencies["glide"]
+    kapt rootProject.ext.dependencies["glideCompiler"]
 
     api rootProject.ext.dependencies.rxbinding
 }

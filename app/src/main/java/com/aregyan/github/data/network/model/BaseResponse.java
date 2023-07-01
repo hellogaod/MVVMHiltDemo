@@ -1,4 +1,4 @@
-package com.aregyan.github.network.model;
+package com.aregyan.github.data.network.model;
 
 /**
  * Created by goldze on 2017/5/10.

@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mvvmhabit.R;
 
-import me.goldze.mvvmhabit.base.BaseFragment;
+import me.goldze.mvvmhabit.base.view.BaseFragment;
 
 
 /**

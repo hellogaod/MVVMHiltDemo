@@ -80,10 +80,6 @@ dependencies {
     implementation rootProject.ext.support["kotlinxCoroutines"]
     implementation rootProject.ext.support["kotlinxCoroutinesAndroid"]
 
-    // Glide
-    implementation rootProject.ext.dependencies["glide"]
-    kapt rootProject.ext.dependencies["glideCompiler"]
-
     // Timber
     implementation rootProject.ext.dependencies["timber"]
 

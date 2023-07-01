@@ -1,4 +1,4 @@
-package me.goldze.mvvmhabit.base;
+package me.goldze.mvvmhabit.base.viewmodel;
 
 import android.os.Bundle;
 

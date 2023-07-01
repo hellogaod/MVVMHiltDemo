@@ -1,8 +1,8 @@
-package com.aregyan.github.network
+package com.aregyan.github.data.network
 
 import androidx.lifecycle.LiveData
-import com.aregyan.github.network.model.BaseResponse
-import com.aregyan.github.network.model.NetworkDemoEntity
+import com.aregyan.github.data.network.model.BaseResponse
+import com.aregyan.github.data.network.model.NetworkDemoEntity
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET

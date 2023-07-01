@@ -1,9 +1,9 @@
 package com.aregyan.github.di
 
 import com.aregyan.github.BuildConfig
-import com.aregyan.github.network.DemoApiService
-import com.aregyan.github.network.UserDetailsService
-import com.aregyan.github.network.UserListService
+import com.aregyan.github.data.network.DemoApiService
+import com.aregyan.github.data.network.UserDetailsService
+import com.aregyan.github.data.network.UserListService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

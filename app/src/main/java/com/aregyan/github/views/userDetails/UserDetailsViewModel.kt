@@ -3,8 +3,8 @@ package com.aregyan.github.views.userDetails
 import androidx.databinding.ObservableParcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aregyan.github.domain.UserDetails
-import com.aregyan.github.repository.UserDetailsRepository
+import com.aregyan.github.data.domain.UserDetails
+import com.aregyan.github.data.repository.UserDetailsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

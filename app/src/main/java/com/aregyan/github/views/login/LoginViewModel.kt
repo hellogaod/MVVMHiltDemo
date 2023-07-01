@@ -5,12 +5,12 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
-import com.aregyan.github.repository.DemoRepository
+import com.aregyan.github.data.repository.DemoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import me.goldze.mvvmhabit.base.BaseViewModel
+import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
 import me.goldze.mvvmhabit.binding.command.BindingCommand
 import me.goldze.mvvmhabit.binding.command.BindingConsumer

@@ -2,8 +2,8 @@ package com.aregyan.github.di
 
 import android.content.Context
 import androidx.room.Room
-import com.aregyan.github.database.UsersDao
-import com.aregyan.github.database.UsersDatabase
+import com.aregyan.github.data.database.UsersDao
+import com.aregyan.github.data.database.UsersDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

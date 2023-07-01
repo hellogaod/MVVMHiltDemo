@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aregyan.github.databinding.ItemUsersListBinding
-import com.aregyan.github.domain.UserListItem
+import com.aregyan.github.data.domain.UserListItem
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 

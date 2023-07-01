@@ -1,17 +1,16 @@
-package com.aregyan.github.repository
+package com.aregyan.github.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.aregyan.github.network.DemoApiService
-import com.aregyan.github.network.model.BaseResponse
-import com.aregyan.github.network.model.NetworkDemoEntity
+import com.aregyan.github.data.network.DemoApiService
+import com.aregyan.github.data.network.model.BaseResponse
+import com.aregyan.github.data.network.model.NetworkDemoEntity
 import me.goldze.mvvmhabit.utils.SPUtils
 import javax.inject.Inject
 
 class DemoRepository @Inject constructor(
     private val demoApiService: DemoApiService
 ) {
-
     //模拟登陆
     suspend fun login() {
         //沉睡3秒钟

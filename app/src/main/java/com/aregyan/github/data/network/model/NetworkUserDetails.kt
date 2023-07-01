@@ -1,7 +1,7 @@
-package com.aregyan.github.network.model
+package com.aregyan.github.data.network.model
 
 
-import com.aregyan.github.database.DatabaseUserDetails
+import com.aregyan.github.data.database.DatabaseUserDetails
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

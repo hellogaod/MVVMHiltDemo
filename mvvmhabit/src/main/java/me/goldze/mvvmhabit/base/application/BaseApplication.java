@@ -1,10 +1,12 @@
-package me.goldze.mvvmhabit.base;
+package me.goldze.mvvmhabit.base.application;
 
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
+import me.goldze.mvvmhabit.base.AppManager;
 import me.goldze.mvvmhabit.utils.Utils;
 
 /**
