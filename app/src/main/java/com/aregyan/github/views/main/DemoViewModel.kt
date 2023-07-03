@@ -1,6 +1,7 @@
 package com.aregyan.github.views.main
 
 import android.os.Bundle
+import com.aregyan.github.views.network.NetWorkFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
@@ -22,7 +23,7 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //网络访问点击事件
     var netWorkClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startContainerActivity(NetWorkFragment::class.java.getCanonicalName())*/ })
+        BindingCommand<Any?>(BindingAction { startContainerActivity(NetWorkFragment::class.java.getCanonicalName()) })
 
     //RecycleView多布局
     var rvMultiClick: BindingCommand<*> =

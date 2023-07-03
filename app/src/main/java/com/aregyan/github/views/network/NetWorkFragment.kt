@@ -1,6 +1,11 @@
 package com.aregyan.github.views.network
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -10,10 +15,8 @@ import me.goldze.mvvmhabit.base.view.BaseFragment
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils
 import me.goldze.mvvmhabit.utils.ToastUtils
 
-
 @AndroidEntryPoint
 class NetWorkFragment : BaseFragment() {
-
 
     private val viewModel: NetWorkViewModel by viewModels()
 
@@ -24,10 +27,15 @@ class NetWorkFragment : BaseFragment() {
         return BR.viewModel
     }
 
-    override fun initAndGetViewDataBinding(): FragmentNetworkBinding? {
-        _binding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_network)
+    override fun initAndGetViewDataBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): ViewDataBinding? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_network, container, false);
         return _binding
     }
+
 
     override fun initBaseViewModel(): NetWorkViewModel {
         return viewModel

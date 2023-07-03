@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer;
 
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel;
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel.ParameterField;
-import me.goldze.mvvmhabit.base.activity.ContainerActivity;
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 
 
@@ -205,12 +204,21 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * @param bundle        跳转所携带的信息
      */
     public void startContainerActivity(String canonicalName, Bundle bundle) {
-        Intent intent = new Intent(this, ContainerActivity.class);
-        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName);
-        if (bundle != null) {
-            intent.putExtra(ContainerActivity.BUNDLE, bundle);
+
+        Class<?> activityClass = null;
+        try {
+            activityClass = Class.forName("com.aregyan.github.views.ContainerActivity");
+            Intent intent = new Intent(this, activityClass);
+            intent.putExtra("fragment", canonicalName);
+            if (bundle != null) {
+                intent.putExtra("bundle", bundle);
+            }
+            startActivity(intent);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        startActivity(intent);
+
+
     }
 
     /**

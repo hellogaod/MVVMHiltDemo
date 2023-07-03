@@ -67,10 +67,6 @@ dependencies {
     implementation rootProject.ext.dependencies["moshiKotlin"]
     implementation rootProject.ext.dependencies["moshiAdapters"]
 
-
-    implementation rootProject.ext.dependencies["tkrefreshlayout"]
-
-
     // Coroutines
     implementation rootProject.ext.support["kotlinxCoroutines"]
     implementation rootProject.ext.support["kotlinxCoroutinesAndroid"]

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-kapt'//当前模块可以使用kapt替代annotationProcessor
     id 'kotlin-android'//当前模块可以使用kotlin语言
+    id 'dagger.hilt.android.plugin'//当前模块使用hilt插件
 }
 
 android {
@@ -47,6 +48,10 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
+    // Hilt
+    implementation rootProject.ext.dependencies["hiltAndroid"]
+    kapt rootProject.ext.dependencies["hiltCompiler"]
+
     //rxjava
     api rootProject.ext.dependencies.rxjava
     api rootProject.ext.dependencies.rxandroid
@@ -76,4 +81,7 @@ dependencies {
     api rootProject.ext.dependencies["retrofitKotlinCoroutinesAdapter"]
     api rootProject.ext.dependencies["retrofitConverterMoshi"]
     api rootProject.ext.dependencies["adapterRxjava"]
+
+    api rootProject.ext.dependencies["tkrefreshlayout"]
+
 }

@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface DemoApiService {
 
     @GET("action/apiv2/banner?catalog=1")
-   suspend fun demoGet(): LiveData<BaseResponse<NetworkDemoEntity?>?>?
+   suspend fun demoGet(): BaseResponse<NetworkDemoEntity?>?
 
     @FormUrlEncoded
     @POST("action/apiv2/banner")

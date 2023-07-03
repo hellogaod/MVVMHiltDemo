@@ -88,8 +88,8 @@ class NetWorkViewModel @Inject constructor(private val demoRepository: DemoRepos
                 //清除列表
                 observableList.clear()
                 //请求成功
-                if (response?.value?.getCode() === 1) {
-                    for (entity in response?.value?.getResult()!!.getItems()) {
+                if (response?.code == 1) {
+                    for (entity in response?.getResult()!!.getItems()) {
                         val itemViewModel = NetWorkItemViewModel(this@NetWorkViewModel, entity)
                         //双向绑定动态添加Item
                         observableList.add(itemViewModel)

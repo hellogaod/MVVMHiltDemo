@@ -104,3 +104,8 @@
 ## （七）数据 网络请求数据，转换database数据，entity数据，改成这样类型的
 
 ## （八） viewmodel中如何获取Context
+
+## （九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
+
+  应该有解决方案的，例如subComponent，可以一试
+  

@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer;
 
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel;
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel.ParameterField;
-import me.goldze.mvvmhabit.base.activity.ContainerActivity;
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 
 /**
@@ -45,7 +44,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //私有的初始化Databinding和ViewModel方法
-        initViewDataBinding();
+        initViewDataBinding(inflater, container, savedInstanceState);
         return dataBinding.getRoot();
     }
 
@@ -80,8 +79,8 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     /**
      * 注入绑定
      */
-    private void initViewDataBinding() {
-        this.dataBinding = initAndGetViewDataBinding();
+    private void initViewDataBinding(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        this.dataBinding = initAndGetViewDataBinding(inflater, container, savedInstanceState);
         this.baseViewModel = initBaseViewModel();
 
         if (this.dataBinding == null) {
@@ -209,12 +208,20 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
      * @param bundle        跳转所携带的信息
      */
     public void startContainerActivity(String canonicalName, Bundle bundle) {
-        Intent intent = new Intent(getContext(), ContainerActivity.class);
-        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName);
-        if (bundle != null) {
-            intent.putExtra(ContainerActivity.BUNDLE, bundle);
+
+
+        Class<?> activityClass = null;
+        try {
+            activityClass = Class.forName("com.aregyan.github.views.ContainerActivity");
+            Intent intent = new Intent(getContext(), activityClass);
+            intent.putExtra("fragment", canonicalName);
+            if (bundle != null) {
+                intent.putExtra("bundle", bundle);
+            }
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        startActivity(intent);
     }
 
     /**
@@ -241,7 +248,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
      */
     public abstract int initVariableId();
 
-    protected abstract ViewDataBinding initAndGetViewDataBinding();
+    protected abstract ViewDataBinding initAndGetViewDataBinding(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     protected abstract BaseViewModel initBaseViewModel();
 

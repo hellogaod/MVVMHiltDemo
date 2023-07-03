@@ -1,6 +1,8 @@
 package com.aregyan.github.views.network.details
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
@@ -36,8 +38,12 @@ class DetailFragment : BaseFragment() {
         return BR.viewModel
     }
 
-    override fun initAndGetViewDataBinding(): ViewDataBinding? {
-        _binding = DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_detail)
+    override fun initAndGetViewDataBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): ViewDataBinding? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
         return _binding
     }
 

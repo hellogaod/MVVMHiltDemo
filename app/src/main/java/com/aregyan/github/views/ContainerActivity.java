@@ -1,4 +1,4 @@
-package me.goldze.mvvmhabit.base.activity;
+package com.aregyan.github.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mvvmhabit.R;
+import com.aregyan.github.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import me.goldze.mvvmhabit.base.view.BaseFragment;
 
 
@@ -20,6 +21,7 @@ import me.goldze.mvvmhabit.base.view.BaseFragment;
  * 盛装Fragment的一个容器(代理)Activity
  * 普通界面只需要编写Fragment,使用此Activity盛装,这样就不需要每个界面都在AndroidManifest中注册一遍
  */
+@AndroidEntryPoint
 public class ContainerActivity extends AppCompatActivity {
     private static final String FRAGMENT_TAG = "content_fragment_tag";
     public static final String FRAGMENT = "fragment";
@@ -31,19 +33,27 @@ public class ContainerActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = null;
-        if (savedInstanceState != null) {
-            fragment = fm.getFragment(savedInstanceState, FRAGMENT_TAG);
+
+        try {
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment fragment = null;
+            if (savedInstanceState != null) {
+                fragment = fm.getFragment(savedInstanceState, FRAGMENT_TAG);
+            }
+            if (fragment == null) {
+                fragment = initFromIntent(getIntent());
+            }
+
+            FragmentTransaction trans = getSupportFragmentManager()
+                    .beginTransaction();
+            trans.replace(R.id.content, fragment);
+            trans.commitAllowingStateLoss();
+            mFragment = new WeakReference<>(fragment);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        if (fragment == null) {
-            fragment = initFromIntent(getIntent());
-        }
-        FragmentTransaction trans = getSupportFragmentManager()
-                .beginTransaction();
-        trans.replace(R.id.content, fragment);
-        trans.commitAllowingStateLoss();
-        mFragment = new WeakReference<>(fragment);
+
+
     }
 
     @Override

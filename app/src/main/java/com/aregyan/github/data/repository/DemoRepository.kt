@@ -38,7 +38,7 @@ class DemoRepository @Inject constructor(
     }
 
     //调用domeGet接口
-    suspend fun demoGet(): LiveData<BaseResponse<NetworkDemoEntity?>?>? = demoApiService.demoGet()
+    suspend fun demoGet(): BaseResponse<NetworkDemoEntity?>? = demoApiService.demoGet()
 
     //存储用户名
     fun saveUserName(userName: String) {
