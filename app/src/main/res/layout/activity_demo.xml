@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:background="@color/gray"
             android:text="网络访问"
+            android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.netWorkClick}" />
 
         <Button
@@ -30,6 +31,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/gray"
             android:text="RecycleView多布局"
+            android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.rvMultiClick}" />
 
         <Button

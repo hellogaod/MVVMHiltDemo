@@ -2,6 +2,7 @@ package com.aregyan.github.views.main
 
 import android.os.Bundle
 import com.aregyan.github.views.network.NetWorkFragment
+import com.aregyan.github.views.rv_multi.MultiRecycleViewFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
@@ -27,7 +28,7 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //RecycleView多布局
     var rvMultiClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startContainerActivity(MultiRecycleViewFragment::class.java.getCanonicalName())*/ })
+        BindingCommand<Any?>(BindingAction { startContainerActivity(MultiRecycleViewFragment::class.java.getCanonicalName()) })
 
     //进入TabBarActivity
     var startTabBarClick: BindingCommand<*> =
