@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.mvvmhabit.R;
 
 import java.util.Map;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,9 +24,9 @@ import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 /**
  * Created by goldze on 2017/6/15.
  */
-public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends Fragment implements IBaseView {
-    protected V binding;
-    protected VM viewModel;
+public abstract class BaseFragment extends Fragment implements IBaseView {
+    protected ViewDataBinding dataBinding;
+    protected BaseViewModel baseViewModel;
     private int viewModelId;
     private MaterialDialog dialog;
 
@@ -44,26 +44,29 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
-        return binding.getRoot();
+        //私有的初始化Databinding和ViewModel方法
+        initViewDataBinding();
+        return dataBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (viewModel != null) {
-            viewModel.removeRxBus();
+        if (baseViewModel != null) {
+            baseViewModel.removeRxBus();
+            baseViewModel = null;
         }
-        if (binding != null) {
-            binding.unbind();
+        if (dataBinding != null) {
+            dataBinding.unbind();
+            dataBinding = null;
         }
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //私有的初始化Databinding和ViewModel方法
-        initViewDataBinding();
+
+
         //私有的ViewModel与View的契约事件回调逻辑
         registorUIChangeLiveDataCallBack();
         //页面数据初始化方法
@@ -71,33 +74,31 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
         initViewObservable();
         //注册RxBus
-        viewModel.registerRxBus();
+        baseViewModel.registerRxBus();
     }
 
     /**
      * 注入绑定
      */
     private void initViewDataBinding() {
-        /*viewModelId = initVariableId();
-        viewModel = initViewModel();
-        if (viewModel == null) {
-            Class modelClass;
-            Type type = getClass().getGenericSuperclass();
-            if (type instanceof ParameterizedType) {
-                modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
-            } else {
-                //如果没有指定泛型参数，则默认使用BaseViewModel
-                modelClass = BaseViewModel.class;
-            }
-            viewModel = (VM) createViewModel(this, modelClass);
+        this.dataBinding = initAndGetViewDataBinding();
+        this.baseViewModel = initBaseViewModel();
+
+        if (this.dataBinding == null) {
+
+            throw new IllegalArgumentException(getString(R.string.init_binding_error));
         }
-        binding.setVariable(viewModelId, viewModel);
+
+        if (this.baseViewModel == null) {
+            throw new IllegalArgumentException(getString(R.string.init_viewmodel_error));
+        }
+
+        viewModelId = initVariableId();
+
+        //关联ViewModel
+        this.dataBinding.setVariable(viewModelId, baseViewModel);
         //支持LiveData绑定xml，数据改变，UI自动会更新
-        binding.setLifecycleOwner(this);
-        //让ViewModel拥有View的生命周期感应
-        getLifecycle().addObserver(viewModel);
-        //注入RxLifecycle生命周期
-        viewModel.injectLifecycleProvider(this);*/
+        this.dataBinding.setLifecycleOwner(this);
     }
 
     /**
@@ -106,21 +107,21 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
     //注册ViewModel与View的契约UI回调事件
     protected void registorUIChangeLiveDataCallBack() {
         //加载对话框显示
-        viewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
+        baseViewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String title) {
                 showDialog(title);
             }
         });
         //加载对话框消失
-        viewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
+        baseViewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 dismissDialog();
             }
         });
         //跳入新页面
-        viewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        baseViewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 Class<?> clz = (Class<?>) params.get(ParameterField.CLASS);
@@ -129,7 +130,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
             }
         });
         //跳入ContainerActivity
-        viewModel.getUC().getStartContainerActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        baseViewModel.getUC().getStartContainerActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 String canonicalName = (String) params.get(ParameterField.CANONICAL_NAME);
@@ -138,14 +139,14 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
             }
         });
         //关闭界面
-        viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
+        baseViewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 getActivity().finish();
             }
         });
         //关闭上一层
-        viewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
+        baseViewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 getActivity().onBackPressed();
@@ -222,8 +223,8 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
 
     //刷新布局
     public void refreshLayout() {
-        if (viewModel != null) {
-            binding.setVariable(viewModelId, viewModel);
+        if (baseViewModel != null) {
+            dataBinding.setVariable(viewModelId, baseViewModel);
         }
     }
 
@@ -232,12 +233,6 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
 
     }
 
-    /**
-     * 初始化根布局
-     *
-     * @return 布局layout的id
-     */
-    public abstract int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
     /**
      * 初始化ViewModel的id
@@ -246,14 +241,9 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
      */
     public abstract int initVariableId();
 
-    /**
-     * 初始化ViewModel
-     *
-     * @return 继承BaseViewModel的ViewModel
-     */
-    public VM initViewModel() {
-        return null;
-    }
+    protected abstract ViewDataBinding initAndGetViewDataBinding();
+
+    protected abstract BaseViewModel initBaseViewModel();
 
     @Override
     public void initData() {

@@ -6,6 +6,7 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.aregyan.github.data.repository.DemoRepository
+import com.aregyan.github.views.main.DemoActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import me.goldze.mvvmhabit.binding.command.BindingConsumer
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent
 import me.goldze.mvvmhabit.utils.ToastUtils
 import javax.inject.Inject
+
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val demoRepository: DemoRepository) :
@@ -87,6 +89,11 @@ class LoginViewModel @Inject constructor(private val demoRepository: DemoReposit
                 dismissDialog()
                 userName.get()?.let { it -> demoRepository.saveUserName(it) }
                 password.get()?.let { it -> demoRepository.savePassword(it) }
+
+                //进入DemoActivity页面
+                startActivity(DemoActivity::class.java)
+                //关闭页面
+                finish()
             }
         }
     }

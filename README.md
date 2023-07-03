@@ -8,9 +8,9 @@
 
 我这里的mvvmhilt架构是整合以上三个架构的，所以我只是一个代码搬运工。
 
-# 架构思路
+# 一 架构思路
 
-## 一.对象转换思想
+## （一）.对象转换思想
 
 1. network.model：表示从网络请求接受到数据对象，通过asDatabaseModel转换成表对象；
 
@@ -18,7 +18,7 @@
 
 3. domain：viewmodel中使用的对象；
 
-## 二. suspend函数的使用
+## （二）. suspend函数的使用
 
 1. 学习参考资料：https://blog.yujinyan.me/posts/understanding-kotlin-suspend-functions/
 
@@ -68,3 +68,24 @@
        ObservableFloat
        ObservableDouble
        ObservableParcelable
+
+# 二 不满意的地方
+
+## （一）.初始化viewmodel和初始化dataViewBinding
+
+这里的代码能否在改进一下：
+
+      override fun initAndGetViewDataBinding(): ActivityLoginBinding? {
+         _binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+         return _binding
+      }
+      override fun initBaseViewModel(): LoginViewModel {
+         return viewModel
+      }
+## （二） viewmodel和view之间使用信息传递需不需要更改
+
+      viewModel.requestCameraPermissions.observe(this, object : Observer<Boolean?> {
+         override fun onChanged(@Nullable aBoolean: Boolean?) {
+          requestCameraPermissions()
+         }
+      })

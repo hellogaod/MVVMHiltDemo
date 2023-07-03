@@ -4,8 +4,12 @@ buildscript {
     apply from: "config.gradle"
 
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
         google()
-        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
 
@@ -18,8 +22,12 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
         google()
-        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 

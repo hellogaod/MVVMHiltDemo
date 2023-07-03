@@ -104,6 +104,10 @@ ext {
 
             //rxbinding
             "rxbinding"                            : "com.jakewharton.rxbinding2:rxbinding:2.1.1",
+
+            //rx 6.0权限请求
+            "rxpermissions"                        : "com.github.tbruyelle:rxpermissions:0.10.2",
+
     ]
 }
 

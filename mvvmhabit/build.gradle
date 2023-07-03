@@ -42,6 +42,11 @@ dependencies {
     implementation rootProject.ext.jetpack["coreKtx"]
     implementation rootProject.ext.jetpack["appcompat"]
 
+    //rx权限请求
+    api(rootProject.ext.dependencies.rxpermissions) {
+        exclude group: 'com.android.support'
+    }
+
     //rxjava
     api rootProject.ext.dependencies.rxjava
     api rootProject.ext.dependencies.rxandroid

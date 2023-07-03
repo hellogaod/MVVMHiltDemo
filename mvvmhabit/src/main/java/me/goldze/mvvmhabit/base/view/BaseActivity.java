@@ -25,10 +25,9 @@ import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
  * 这里根据项目业务可以换成你自己熟悉的BaseActivity, 但是需要继承RxAppCompatActivity,方便LifecycleProvider管理生命周期
  */
 public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
-
     protected ViewDataBinding dataBinding;
     protected BaseViewModel baseViewModel;
-    private int _viewModelId;
+    private int viewModelId;
     private MaterialDialog dialog;
 
     @Override
@@ -36,24 +35,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         super.onCreate(savedInstanceState);
         //页面接受的参数方法
         initParam();
-        this.dataBinding = initAndGetViewDataBinding();
-        this.baseViewModel = initBaseViewModel();
 
-        if (this.dataBinding == null) {
-
-            throw new IllegalArgumentException(getString(R.string.init_binding_error));
-        }
-
-        if (this.baseViewModel == null) {
-            throw new IllegalArgumentException(getString(R.string.init_viewmodel_error));
-        }
-
-        _viewModelId = initVariableId();
-
-        //关联ViewModel
-        this.dataBinding.setVariable(_viewModelId, baseViewModel);
-        //支持LiveData绑定xml，数据改变，UI自动会更新
-        this.dataBinding.setLifecycleOwner(this);
+        //私有的初始化Databinding和ViewModel方法
+        initViewDataBinding();
 
         //私有的ViewModel与View的契约事件回调逻辑
         registorUIChangeLiveDataCallBack();
@@ -67,11 +51,36 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         baseViewModel.registerRxBus();
     }
 
+    /**
+     * 注入绑定
+     */
+    private void initViewDataBinding() {
+        this.dataBinding = initAndGetViewDataBinding();
+        this.baseViewModel = initBaseViewModel();
+
+        if (this.dataBinding == null) {
+
+            throw new IllegalArgumentException(getString(R.string.init_binding_error));
+        }
+
+        if (this.baseViewModel == null) {
+            throw new IllegalArgumentException(getString(R.string.init_viewmodel_error));
+        }
+
+        viewModelId = initVariableId();
+
+        //关联ViewModel
+        this.dataBinding.setVariable(viewModelId, baseViewModel);
+        //支持LiveData绑定xml，数据改变，UI自动会更新
+        this.dataBinding.setLifecycleOwner(this);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (baseViewModel != null) {
             baseViewModel.removeRxBus();
+            baseViewModel = null;
         }
         if (dataBinding != null) {
             dataBinding.unbind();
@@ -83,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     //刷新布局
     public void refreshLayout() {
         if (baseViewModel != null) {
-            dataBinding.setVariable(_viewModelId, baseViewModel);
+            dataBinding.setVariable(viewModelId, baseViewModel);
         }
     }
 
