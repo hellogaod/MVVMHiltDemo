@@ -3,6 +3,8 @@ package com.aregyan.github.views.main
 import android.os.Bundle
 import com.aregyan.github.views.network.NetWorkFragment
 import com.aregyan.github.views.rv_multi.MultiRecycleViewFragment
+import com.aregyan.github.views.tab_bar.activity.TabBarActivity
+import com.aregyan.github.views.viewpager.ViewPagerActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
@@ -32,11 +34,11 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //进入TabBarActivity
     var startTabBarClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startActivity(TabBarActivity::class.java)*/ })
+        BindingCommand<Any?>(BindingAction { startActivity(TabBarActivity::class.java) })
 
     //ViewPager绑定
     var viewPagerBindingClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startActivity(ViewPagerActivity::class.java)*/ })
+        BindingCommand<Any?>(BindingAction { startActivity(ViewPagerActivity::class.java) })
 
     //ViewPager+Fragment
     var viewPagerGroupBindingClick: BindingCommand<*> =
@@ -48,16 +50,16 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //表单修改点击事件
     var formModifyClick: BindingCommand<*> = BindingCommand<Any?>(BindingAction { //模拟一个修改的实体数据
-       /* val entity = FormEntity()
-        entity.setId("12345678")
-        entity.setName("goldze")
-        entity.setSex("1")
-        entity.setBir("xxxx年xx月xx日")
-        entity.setMarry(true)
-        //传入实体数据
-        val mBundle = Bundle()
-        mBundle.putParcelable("entity", entity)
-        startContainerActivity(FormFragment::class.java.getCanonicalName(), mBundle)*/
+        /* val entity = FormEntity()
+         entity.setId("12345678")
+         entity.setName("goldze")
+         entity.setSex("1")
+         entity.setBir("xxxx年xx月xx日")
+         entity.setMarry(true)
+         //传入实体数据
+         val mBundle = Bundle()
+         mBundle.putParcelable("entity", entity)
+         startContainerActivity(FormFragment::class.java.getCanonicalName(), mBundle)*/
     })
 
     //权限申请

@@ -40,6 +40,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/gray"
             android:text="底部Tab按钮"
+            android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.startTabBarClick}" />
 
         <Button
@@ -48,6 +49,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/gray"
             android:text="ViewPager绑定"
+            android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.viewPagerBindingClick}" />
 
         <Button

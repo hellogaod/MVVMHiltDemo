@@ -17,7 +17,7 @@ import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 /**
  * Created by goldze on 2017/6/15.
  */
-public class BaseViewModel extends ViewModel implements Consumer<Disposable> {
+public  class BaseViewModel extends ViewModel implements Consumer<Disposable> {
     private UIChangeLiveData uc;
 
     //管理RxJava，主要针对RxJava异步操作造成的内存泄漏

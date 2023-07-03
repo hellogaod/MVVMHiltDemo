@@ -34,6 +34,12 @@
         <activity
             android:name="com.aregyan.github.views.main.DemoActivity"
             android:configChanges="orientation|keyboardHidden"></activity>
+
+        <activity android:name="com.aregyan.github.views.tab_bar.activity.TabBarActivity"></activity>
+
+        <activity android:name="com.aregyan.github.views.viewpager.ViewPagerActivity"></activity>
+
+
     </application>
 
 </manifest>

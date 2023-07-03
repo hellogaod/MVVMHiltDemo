@@ -64,60 +64,61 @@ ext {
     //依赖第三方配置
     dependencies = [
             // Hilt
-            "hiltAndroid"                    : "com.google.dagger:hilt-android:${versions["hilt_version"]}",
-            "hiltCompiler"                   : "com.google.dagger:hilt-compiler:${versions["hilt_version"]}",
+            "hiltAndroid"                          : "com.google.dagger:hilt-android:${versions["hilt_version"]}",
+            "hiltCompiler"                         : "com.google.dagger:hilt-compiler:${versions["hilt_version"]}",
 
             //okhttp
-            "okhttpBom"                      : "com.squareup.okhttp3:okhttp-bom:4.9.0",//bom的作用是帮助您实时更新 OkHttp 版本进而保证OkHttp的兼容性
-            "okhttp"                         : "com.squareup.okhttp3:okhttp",
-            "okhttpLogginInterceptor"        : "com.squareup.okhttp3:logging-interceptor",
+            "okhttpBom"                            : "com.squareup.okhttp3:okhttp-bom:4.9.0",//bom的作用是帮助您实时更新 OkHttp 版本进而保证OkHttp的兼容性
+            "okhttp"                               : "com.squareup.okhttp3:okhttp",
+            "okhttpLogginInterceptor"              : "com.squareup.okhttp3:logging-interceptor",
 
             //retorfit
-            "retrofit"                       : 'com.squareup.retrofit2:retrofit:2.9.0',
-            "retrofitKotlinCoroutinesAdapter": 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2',
-            "retrofitConverterMoshi"         : 'com.squareup.retrofit2:converter-moshi:2.9.0',
-            "adapterRxjava"                  : "com.squareup.retrofit2:adapter-rxjava2:2.9.0",
+            "retrofit"                             : 'com.squareup.retrofit2:retrofit:2.9.0',
+            "retrofitKotlinCoroutinesAdapter"      : 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2',
+            "retrofitConverterMoshi"               : 'com.squareup.retrofit2:converter-moshi:2.9.0',
+            "adapterRxjava"                        : "com.squareup.retrofit2:adapter-rxjava2:2.9.0",
 
             //moshi:
             // 在java中我们经常使用Gson、FastJson 来实现序列化和反序列化，由于kotlin的一些新特性以上框架不支持，所以才有了Moshi的诞生
             //参考：https://www.jianshu.com/p/50ad048a4b59
-            "moshiKotlinCodeGen"             : "com.squareup.moshi:moshi-kotlin-codegen:${versions["moshi_version"]}",
-            "moshi"                          : "com.squareup.moshi:moshi:${versions["moshi_version"]}",
-            "moshiKotlin"                    : "com.squareup.moshi:moshi-kotlin:${versions["moshi_version"]}",
-            "moshiAdapters"                  : "com.squareup.moshi:moshi-adapters:${versions["moshi_version"]}",
+            "moshiKotlinCodeGen"                   : "com.squareup.moshi:moshi-kotlin-codegen:${versions["moshi_version"]}",
+            "moshi"                                : "com.squareup.moshi:moshi:${versions["moshi_version"]}",
+            "moshiKotlin"                          : "com.squareup.moshi:moshi-kotlin:${versions["moshi_version"]}",
+            "moshiAdapters"                        : "com.squareup.moshi:moshi-adapters:${versions["moshi_version"]}",
 
             //glide
-            "glide"                          : "com.github.bumptech.glide:glide:${versions["glide_version"]}",
-            "glideCompiler"                  : "com.github.bumptech.glide:compiler:${versions["glide_version"]}",
+            "glide"                                : "com.github.bumptech.glide:glide:${versions["glide_version"]}",
+            "glideCompiler"                        : "com.github.bumptech.glide:compiler:${versions["glide_version"]}",
 
             //日志
-            "timber"                         : 'com.jakewharton.timber:timber:5.0.1',
+            "timber"                               : 'com.jakewharton.timber:timber:5.0.1',
 
             //Leak Canary内存泄漏
-            "leakcanary"                     : 'com.squareup.leakcanary:leakcanary-android:2.7',
+            "leakcanary"                           : 'com.squareup.leakcanary:leakcanary-android:2.7',
 
             //rxjava
-            "rxjava"                         : "io.reactivex.rxjava2:rxjava:2.2.3",
-            "rxandroid"                      : "io.reactivex.rxjava2:rxandroid:2.1.0",
+            "rxjava"                               : "io.reactivex.rxjava2:rxjava:2.2.3",
+            "rxandroid"                            : "io.reactivex.rxjava2:rxandroid:2.1.0",
 
             //material-dialogs
-            "material-dialogs-core"          : "com.afollestad.material-dialogs:core:0.9.6.0",
-            "material-dialogs-commons"       : "com.afollestad.material-dialogs:commons:0.9.6.0",
+            "material-dialogs-core"                : "com.afollestad.material-dialogs:core:0.9.6.0",
+            "material-dialogs-commons"             : "com.afollestad.material-dialogs:commons:0.9.6.0",
 
             //rxbinding
-            "rxbinding"                      : "com.jakewharton.rxbinding2:rxbinding:2.1.1",
+            "rxbinding"                            : "com.jakewharton.rxbinding2:rxbinding:2.1.1",
 
             //rx 6.0权限请求
-            "rxpermissions"                  : "com.github.tbruyelle:rxpermissions:0.10.2",
+            "rxpermissions"                        : "com.github.tbruyelle:rxpermissions:0.10.2",
 
             //上拉刷新，下拉加载
-            "tkrefreshlayout"                : 'com.lcodecorex:tkrefreshlayout:1.0.7',
+            "tkrefreshlayout"                      : 'com.lcodecorex:tkrefreshlayout:1.0.7',
 
             //recyclerview的databinding套装
             "bindingcollectionadapter"             : "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0",
             "bindingcollectionadapter-recyclerview": "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0",
             "bindingcollectionadapter-viewpager2"  : "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-viewpager2:4.0.0",
 
+            "bottomTab"                            : "me.majiajie:pager-bottom-tab-strip:2.2.5",
     ]
 }
 

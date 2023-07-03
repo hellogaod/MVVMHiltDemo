@@ -74,6 +74,9 @@ dependencies {
     // Timber
     implementation rootProject.ext.dependencies["timber"]
 
+    implementation rootProject.ext.dependencies["bottomTab"]
+
+
     // Leak Canary
     debugImplementation rootProject.ext.dependencies["leakcanary"]
 

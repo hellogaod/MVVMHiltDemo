@@ -108,4 +108,5 @@
 ## （九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
 
   应该有解决方案的，例如subComponent，可以一试
+  viewmodel也一样
   
