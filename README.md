@@ -1,7 +1,9 @@
 # 前沿
+
 基于dagger-hilt、aac、hvvm-habit做的一套MVVM-hilt框架
 
 参考文献：
+
 1. https://github.com/aregpetrosyan/Android-MVVM-Boilerplate-Hilt
 2. https://github.com/goldze/MVVMHabit
 3. https://github.com/android/architecture-components-samples
@@ -24,50 +26,50 @@
 
 2. suspend demo：
 
- - （1）表示开启IO线程操作：
+- （1）表示开启IO线程操作：
 
-         init {
-               //表示切换线程去请求数据 
-               viewModelScope.launch(Dispatchers.IO) {
-                   userListRepository.refreshUserList()
-               }
-           }
- - （2）请求网络数据：
+        init {
+              //表示切换线程去请求数据 
+              viewModelScope.launch(Dispatchers.IO) {
+                  userListRepository.refreshUserList()
+              }
+          }
+- （2）请求网络数据：
 
-       suspend fun refreshUserList() {
-           try {
-                //表示异步http请求
-                val users = userListService.getUserList()
-                database.usersDao.insertAll(users.asDatabaseModel())
-           } catch (e: Exception) {
-                Timber.w(e)
-           }
-       }
-    
-        @GET("/repos/square/retrofit/stargazers")
-        suspend fun getUserList(): List<NetworkUserListItem>
+      suspend fun refreshUserList() {
+          try {
+               //表示异步http请求
+               val users = userListService.getUserList()
+               database.usersDao.insertAll(users.asDatabaseModel())
+          } catch (e: Exception) {
+               Timber.w(e)
+          }
+      }
+   
+       @GET("/repos/square/retrofit/stargazers")
+       suspend fun getUserList(): List<NetworkUserListItem>
 
- - （3）更新ui：
+- （3）更新ui：
 
-       lifecycleScope.launch {
-         val posts = 🏹 retrofit.get<PostService>().fetchPosts();
-         // 由于在主线程，可以拿着 posts 更新 UI
-       }
+      lifecycleScope.launch {
+        val posts = 🏹 retrofit.get<PostService>().fetchPosts();
+        // 由于在主线程，可以拿着 posts 更新 UI
+      }
 
 3. 可观察对象
 
- - （1）参考地址：https://www.jianshu.com/p/3c5ecc330f84
- - （2）当前案例：ObservableParcelable
+- （1）参考地址：https://www.jianshu.com/p/3c5ecc330f84
+- （2）当前案例：ObservableParcelable
 
-       ObservableBoolean
-       ObservableByte
-       ObservableChar
-       ObservableShort
-       ObservableInt
-       ObservableLong
-       ObservableFloat
-       ObservableDouble
-       ObservableParcelable
+      ObservableBoolean
+      ObservableByte
+      ObservableChar
+      ObservableShort
+      ObservableInt
+      ObservableLong
+      ObservableFloat
+      ObservableDouble
+      ObservableParcelable
 
 # 二 不满意的地方
 
@@ -82,6 +84,7 @@
       override fun initBaseViewModel(): LoginViewModel {
          return viewModel
       }
+
 ## （二） viewmodel和view之间使用信息传递需不需要更改
 
       viewModel.requestCameraPermissions.observe(this, object : Observer<Boolean?> {
@@ -89,3 +92,15 @@
           requestCameraPermissions()
          }
       })
+
+## （三） 改成多模块的di ： view + data + mvvmhabit
+
+## （四）Rxjava是否还需要？
+
+## （五）文件下载里面的DownLoadManager和Retrofit对象改成di，并且http写到。。。
+
+## （六） viewAdapter重新整理一下，起码要认识全了（并且归类），因为要写文档，
+
+## （七）数据 网络请求数据，转换database数据，entity数据，改成这样类型的
+
+## （八） viewmodel中如何获取Context

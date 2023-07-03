@@ -61,20 +61,15 @@ dependencies {
     implementation rootProject.ext.dependencies["hiltAndroid"]
     kapt rootProject.ext.dependencies["hiltCompiler"]
 
-    // Retrofit for networking
-    implementation(platform(rootProject.ext.dependencies["okhttpBom"]))
-    implementation rootProject.ext.dependencies["okhttp"]
-    implementation rootProject.ext.dependencies["okhttpLogginInterceptor"]
-
-    implementation rootProject.ext.dependencies["retrofit"]
-    implementation rootProject.ext.dependencies["retrofitKotlinCoroutinesAdapter"]
-    implementation rootProject.ext.dependencies["retrofitConverterMoshi"]
-
     // Moshi
     kapt rootProject.ext.dependencies["moshiKotlinCodeGen"]
     implementation rootProject.ext.dependencies["moshi"]
     implementation rootProject.ext.dependencies["moshiKotlin"]
     implementation rootProject.ext.dependencies["moshiAdapters"]
+
+
+    implementation rootProject.ext.dependencies["tkrefreshlayout"]
+
 
     // Coroutines
     implementation rootProject.ext.support["kotlinxCoroutines"]
@@ -88,4 +83,14 @@ dependencies {
 
     implementation project(path: ':mvvmhabit')
 
+    //recyclerview的databinding套装
+    api(rootProject.ext.dependencies.bindingcollectionadapter) {
+        exclude group: 'com.android.support'
+    }
+    api(rootProject.ext.dependencies["bindingcollectionadapter-recyclerview"]) {
+        exclude group: 'com.android.support'
+    }
+    api(rootProject.ext.dependencies["bindingcollectionadapter-viewpager2"]) {
+        exclude group: 'com.android.support'
+    }
 }

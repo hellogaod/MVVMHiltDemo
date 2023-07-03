@@ -64,4 +64,16 @@ dependencies {
     kapt rootProject.ext.dependencies["glideCompiler"]
 
     api rootProject.ext.dependencies.rxbinding
+
+    api rootProject.ext.jetpack["recyclerview"]
+
+    // Retrofit for networking
+    api(platform(rootProject.ext.dependencies["okhttpBom"]))
+    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["okhttpLogginInterceptor"]
+
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofitKotlinCoroutinesAdapter"]
+    api rootProject.ext.dependencies["retrofitConverterMoshi"]
+    api rootProject.ext.dependencies["adapterRxjava"]
 }
