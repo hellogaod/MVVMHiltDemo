@@ -1,10 +1,13 @@
 package com.aregyan.github.views.main
 
 import android.os.Bundle
+import com.aregyan.github.data.domain.FormEntity
+import com.aregyan.github.views.form.FormFragment
 import com.aregyan.github.views.network.NetWorkFragment
 import com.aregyan.github.views.rv_multi.MultiRecycleViewFragment
 import com.aregyan.github.views.tab_bar.activity.TabBarActivity
 import com.aregyan.github.views.viewpager.ViewPagerActivity
+import com.aregyan.github.views.vp_frg.ViewPagerGroupFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
@@ -42,15 +45,15 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //ViewPager+Fragment
     var viewPagerGroupBindingClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startContainerActivity(ViewPagerGroupFragment::class.java.getCanonicalName())*/ })
+        BindingCommand<Any?>(BindingAction { startContainerActivity(ViewPagerGroupFragment::class.java.getCanonicalName()) })
 
     //表单提交点击事件
     var formSbmClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startContainerActivity(FormFragment::class.java.getCanonicalName())*/ })
+        BindingCommand<Any?>(BindingAction { startContainerActivity(FormFragment::class.java.getCanonicalName()) })
 
     //表单修改点击事件
     var formModifyClick: BindingCommand<*> = BindingCommand<Any?>(BindingAction { //模拟一个修改的实体数据
-        /* val entity = FormEntity()
+         val entity = FormEntity()
          entity.setId("12345678")
          entity.setName("goldze")
          entity.setSex("1")
@@ -59,7 +62,7 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
          //传入实体数据
          val mBundle = Bundle()
          mBundle.putParcelable("entity", entity)
-         startContainerActivity(FormFragment::class.java.getCanonicalName(), mBundle)*/
+         startContainerActivity(FormFragment::class.java.getCanonicalName(), mBundle)
     })
 
     //权限申请

@@ -109,4 +109,8 @@
 
   应该有解决方案的，例如subComponent，可以一试
   viewmodel也一样
+
+## （十） ViewPagerGroupFragment继承BasePagerFragment，可以重新写一下。而且还报错。
+
+## （十一） oom问题解决
   

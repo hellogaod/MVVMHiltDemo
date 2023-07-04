@@ -76,6 +76,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies["bottomTab"]
 
+    implementation rootProject.ext.dependencies["gson"]
 
     // Leak Canary
     debugImplementation rootProject.ext.dependencies["leakcanary"]

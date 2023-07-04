@@ -119,6 +119,7 @@ ext {
             "bindingcollectionadapter-viewpager2"  : "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-viewpager2:4.0.0",
 
             "bottomTab"                            : "me.majiajie:pager-bottom-tab-strip:2.2.5",
+            "gson"                                 : "com.google.code.gson:gson:2.8.6",
     ]
 }
 
