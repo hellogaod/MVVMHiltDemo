@@ -73,17 +73,6 @@
 
 # 二 不满意的地方
 
-## （一）.初始化viewmodel和初始化dataViewBinding
-
-这里的代码能否在改进一下：
-
-      override fun initAndGetViewDataBinding(): ActivityLoginBinding? {
-         _binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-         return _binding
-      }
-      override fun initBaseViewModel(): LoginViewModel {
-         return viewModel
-      }
 
 ## （二） viewmodel和view之间使用信息传递需不需要更改
 
@@ -113,4 +102,6 @@
 ## （十） ViewPagerGroupFragment继承BasePagerFragment，可以重新写一下。而且还报错。
 
 ## （十一） oom问题解决
+
+## （十二） 
   

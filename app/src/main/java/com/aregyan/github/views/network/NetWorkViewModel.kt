@@ -18,7 +18,6 @@ import me.goldze.mvvmhabit.utils.ToastUtils
 import me.tatarka.bindingcollectionadapter2.ItemBinding
 import javax.inject.Inject
 
-
 @HiltViewModel
 class NetWorkViewModel @Inject constructor(private val demoRepository: DemoRepository) :
     BaseViewModel() {
@@ -44,13 +43,13 @@ class NetWorkViewModel @Inject constructor(private val demoRepository: DemoRepos
 
     //下拉刷新
     var onRefreshCommand: BindingCommand<*> = BindingCommand<Any?>(BindingAction {
-        ToastUtils.showShort("下拉刷新")
+        ToastUtils.showToast("下拉刷新")
         requestNetWork()
     })
 
     var onLoadMoreCommand: BindingCommand<*> = BindingCommand<Any?>(BindingAction {
         if (observableList.size > 50) {
-            ToastUtils.showLong("兄dei，你太无聊啦~崩是不可能的~");
+            ToastUtils.showToast("兄dei，你太无聊啦~崩是不可能的~")
             uc.finishLoadmore.call();
             return@BindingAction;
         }
@@ -96,7 +95,7 @@ class NetWorkViewModel @Inject constructor(private val demoRepository: DemoRepos
                     }
                 } else {
                     //code错误时也可以定义Observable回调到View层去处理
-                    ToastUtils.showShort("数据错误")
+                    ToastUtils.showToast("数据错误")
                 }
             }
         }

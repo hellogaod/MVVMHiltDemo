@@ -61,7 +61,7 @@ class FormViewModel @Inject constructor() : ToolbarViewModel() {
     }
 
     override fun rightTextOnClick() {
-        ToastUtils.showShort("更多")
+        ToastUtils.showToast("更多")
     }
 
     fun setFormEntity(entity: FormEntity?) {

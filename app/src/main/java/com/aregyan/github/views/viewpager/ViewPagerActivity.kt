@@ -1,7 +1,7 @@
 package com.aregyan.github.views.viewpager
 
+import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -16,19 +16,17 @@ import me.goldze.mvvmhabit.utils.ToastUtils
 class ViewPagerActivity : BaseActivity() {
     private val viewModel: ViewPagerViewModel by viewModels()
 
-    private var _binding: FragmentViewpagerBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentViewpagerBinding
 
     override fun initVariableId(): Int {
         return BR.viewModel;
     }
 
-    override fun initAndGetViewDataBinding(): FragmentViewpagerBinding? {
-        _binding = DataBindingUtil.setContentView(this, R.layout.fragment_viewpager)
-        return _binding
+    override fun initContentView(savedInstanceState: Bundle?): Int {
+        return R.layout.fragment_viewpager
     }
 
-    override fun initBaseViewModel(): ViewPagerViewModel {
+    override fun setViewModel(): ViewPagerViewModel {
         return viewModel
     }
 
@@ -43,7 +41,7 @@ class ViewPagerActivity : BaseActivity() {
     override fun initViewObservable() {
         viewModel.itemClickEvent.observe(this, object : Observer<String?> {
             override fun onChanged(text: String?) {
-                ToastUtils.showShort("position：$text")
+                ToastUtils.showToast("position：$text")
             }
         })
     }

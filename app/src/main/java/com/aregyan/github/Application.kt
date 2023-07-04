@@ -1,16 +1,16 @@
 package com.aregyan.github
 
-import android.app.Application
 import androidx.viewbinding.BuildConfig
 import com.aregyan.github.views.login.LoginActivity
 import dagger.hilt.android.HiltAndroidApp
+import me.goldze.mvvmhabit.base.application.BaseApplication
 import me.goldze.mvvmhabit.crash.CaocConfig
 import me.goldze.mvvmhabit.utils.Utils
 import timber.log.Timber
 
 
 @HiltAndroidApp
-class Application : Application() {
+class Application : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()

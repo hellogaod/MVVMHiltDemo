@@ -3,6 +3,8 @@
 
     <string name="init_binding_error">binding没有被初始化，请初始化binding</string>
 
+    <string name="toast_message_empty">toast消息不能为空</string>
+
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">发生意外错误。\n抱歉，给您带来不便。</string>
     <string name="customactivityoncrash_error_activity_restart_app">重新启动</string>
     <string name="customactivityoncrash_error_activity_close_app">关闭程序</string>

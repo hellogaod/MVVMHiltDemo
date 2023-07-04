@@ -3,9 +3,6 @@ package com.aregyan.github.views.network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.Nullable
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -19,25 +16,18 @@ import me.goldze.mvvmhabit.utils.ToastUtils
 class NetWorkFragment : BaseFragment() {
 
     private val viewModel: NetWorkViewModel by viewModels()
-
-    private var _binding: FragmentNetworkBinding? = null
-    private val binding get() = _binding!!
-
+    private val binding get() = _binding as FragmentNetworkBinding
     override fun initVariableId(): Int {
         return BR.viewModel
     }
-
-    override fun initAndGetViewDataBinding(
-        inflater: LayoutInflater,
+    override fun initContentView(
+        inflater: LayoutInflater?,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): ViewDataBinding? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_network, container, false);
-        return _binding
+    ): Int {
+       return R.layout.fragment_network
     }
-
-
-    override fun initBaseViewModel(): NetWorkViewModel {
+    override fun setViewModel(): NetWorkViewModel {
         return viewModel
     }
 
@@ -67,7 +57,7 @@ class NetWorkFragment : BaseFragment() {
                 context, "提示", "是否删除【" + netWorkItemViewModel.entity.get()!!
                     .name + "】？ position：" + index
             )
-                .onNegative { dialog, which -> ToastUtils.showShort("取消") }
+                .onNegative { dialog, which -> ToastUtils.showToast("取消") }
                 .onPositive { dialog, which ->
                     viewModel.deleteItem(
                         netWorkItemViewModel

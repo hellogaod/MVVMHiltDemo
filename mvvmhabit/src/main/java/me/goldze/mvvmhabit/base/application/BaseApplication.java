@@ -2,11 +2,15 @@ package me.goldze.mvvmhabit.base.application;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.example.mvvmhabit.R;
+
 import me.goldze.mvvmhabit.base.AppManager;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 import me.goldze.mvvmhabit.utils.Utils;
 
 /**
@@ -19,6 +23,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         setApplication(this);
+        ToastUtils.init(this, R.drawable.toast_frame_style, Color.WHITE);
     }
 
     /**

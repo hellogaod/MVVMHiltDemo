@@ -11,5 +11,5 @@ class MultiRecycleHeadViewModel(viewModel: BaseViewModel?) :
     MultiItemViewModel(viewModel!!) {
     //条目的点击事件
     var itemClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { ToastUtils.showShort("我是头布局") })
+        BindingCommand<Any?>(BindingAction { ToastUtils.showToast("我是头布局") })
 }

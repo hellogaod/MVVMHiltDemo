@@ -3,8 +3,6 @@ package com.aregyan.github.views.network.details
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -18,10 +16,7 @@ import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 class DetailFragment : BaseFragment() {
 
     private val viewModel: DetailViewModel by viewModels()
-
-    private var _binding: FragmentDetailBinding? = null
-    private val binding get() = _binding!!
-
+    private val binding get() = _binding as FragmentDetailBinding
     private var entity: NetworkDemoEntity.ItemsEntity? = null
 
     override fun initParam() {
@@ -38,16 +33,15 @@ class DetailFragment : BaseFragment() {
         return BR.viewModel
     }
 
-    override fun initAndGetViewDataBinding(
-        inflater: LayoutInflater,
+    override fun initContentView(
+        inflater: LayoutInflater?,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): ViewDataBinding? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
-        return _binding
+    ): Int {
+        return R.layout.fragment_detail
     }
 
-    override fun initBaseViewModel(): BaseViewModel {
+    override fun setViewModel(): BaseViewModel {
         return viewModel
     }
 }

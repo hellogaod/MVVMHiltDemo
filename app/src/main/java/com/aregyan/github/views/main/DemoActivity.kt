@@ -2,10 +2,9 @@ package com.aregyan.github.views.main
 
 import android.Manifest
 import android.app.ProgressDialog
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.Nullable
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -26,19 +25,17 @@ class DemoActivity : BaseActivity() {
 
     private val viewModel: DemoViewModel by viewModels()
 
-    private var _binding: ActivityDemoBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as ActivityDemoBinding
 
     override fun initVariableId(): Int {
         return BR.viewModel
     }
 
-    override fun initAndGetViewDataBinding(): ViewDataBinding? {
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_demo)
-        return _binding
+    override fun initContentView(savedInstanceState: Bundle?): Int {
+        return  R.layout.activity_demo
     }
 
-    override fun initBaseViewModel(): BaseViewModel {
+    override fun setViewModel(): BaseViewModel {
         return viewModel
     }
 
@@ -67,9 +64,9 @@ class DemoActivity : BaseActivity() {
 
                 override fun accept(aBoolean: Boolean?) {
                     if (aBoolean == true) {
-                        ToastUtils.showShort("相机权限已经打开，直接跳入相机")
+                        ToastUtils.showToast("相机权限已经打开，直接跳入相机")
                     } else {
-                        ToastUtils.showShort("权限被拒绝")
+                        ToastUtils.showToast("权限被拒绝")
                     }
                 }
             })
@@ -94,7 +91,7 @@ class DemoActivity : BaseActivity() {
                 }
 
                 override fun onSuccess(responseBody: ResponseBody?) {
-                    ToastUtils.showShort("文件下载完成！")
+                    ToastUtils.showToast("文件下载完成！")
                 }
 
                 override fun progress(progress: Long, total: Long) {
@@ -104,7 +101,7 @@ class DemoActivity : BaseActivity() {
 
                 override fun onError(e: Throwable) {
                     e.printStackTrace()
-                    ToastUtils.showShort("文件下载失败！")
+                    ToastUtils.showToast("文件下载失败！")
                     progressDialog.dismiss()
                 }
             })

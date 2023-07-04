@@ -33,7 +33,7 @@ class ViewPagerViewModel @Inject constructor() : BaseViewModel() {
     var onPageSelectedCommand = BindingCommand(object : BindingConsumer<Int?> {
 
         override fun call(index: Int?) {
-            ToastUtils.showShort("ViewPager切换：$index")
+            ToastUtils.showToast("ViewPager切换：$index")
         }
     })
 

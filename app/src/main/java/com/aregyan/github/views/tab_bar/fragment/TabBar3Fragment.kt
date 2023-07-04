@@ -3,8 +3,6 @@ package com.aregyan.github.views.tab_bar.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -17,23 +15,19 @@ import me.goldze.mvvmhabit.base.view.BaseFragment
 class TabBar3Fragment : BaseFragment() {
     private val viewModel: TabViewModel by viewModels()
 
-    private var _binding: FragmentTabBar3Binding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentTabBar3Binding
 
     override fun initVariableId(): Int {
         return BR.viewModel
     }
 
-    override fun initAndGetViewDataBinding(
-        inflater: LayoutInflater,
+    override fun initContentView(
+        inflater: LayoutInflater?,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): ViewDataBinding? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab_bar_3, container, false);
-        return _binding
-    }
+    ): Int  =  R.layout.fragment_tab_bar_3
 
-    override fun initBaseViewModel(): TabViewModel {
+    override fun setViewModel(): TabViewModel {
         return viewModel
     }
 }

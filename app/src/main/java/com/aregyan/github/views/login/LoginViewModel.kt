@@ -71,11 +71,11 @@ class LoginViewModel @Inject constructor(private val demoRepository: DemoReposit
      **/
     private fun login() {
         if (TextUtils.isEmpty(userName.get())) {
-            ToastUtils.showShort("请输入账号！");
+            ToastUtils.showToast("请输入账号！")
             return;
         }
         if (TextUtils.isEmpty(password.get())) {
-            ToastUtils.showShort("请输入密码！");
+            ToastUtils.showToast("请输入密码！")
             return;
         }
 

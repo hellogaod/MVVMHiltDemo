@@ -1,8 +1,8 @@
 package com.aregyan.github.views.tab_bar.activity
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.aregyan.github.BR
@@ -25,19 +25,17 @@ class TabBarActivity : BaseActivity(){
 
     private val viewModel: TabViewModel by viewModels()
 
-    private var _binding: ActivityTabBarBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as ActivityTabBarBinding
 
     override fun initVariableId(): Int {
         return BR.viewModel;
     }
 
-    override fun initAndGetViewDataBinding(): ActivityTabBarBinding? {
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_tab_bar)
-        return _binding
+    override fun initContentView(savedInstanceState: Bundle?): Int {
+        return R.layout.activity_tab_bar
     }
 
-    override fun initBaseViewModel(): TabViewModel {
+    override fun setViewModel(): TabViewModel {
         return viewModel
     }
 

@@ -12,6 +12,7 @@ import com.example.mvvmhabit.R;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -24,8 +25,8 @@ import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
  * Created by goldze on 2017/6/15.
  */
 public abstract class BaseFragment extends Fragment implements IBaseView {
-    protected ViewDataBinding dataBinding;
-    protected BaseViewModel baseViewModel;
+    protected ViewDataBinding _binding;
+    protected BaseViewModel _viewModel;
     private int viewModelId;
     private MaterialDialog dialog;
 
@@ -44,20 +45,20 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //私有的初始化Databinding和ViewModel方法
-        initViewDataBinding(inflater, container, savedInstanceState);
-        return dataBinding.getRoot();
+        this._binding = DataBindingUtil.inflate(inflater, initContentView(inflater, container, savedInstanceState), container, false);
+        return _binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (baseViewModel != null) {
-            baseViewModel.removeRxBus();
-            baseViewModel = null;
+        if (_viewModel != null) {
+            _viewModel.removeRxBus();
+            _viewModel = null;
         }
-        if (dataBinding != null) {
-            dataBinding.unbind();
-            dataBinding = null;
+        if (_binding != null) {
+            _binding.unbind();
+            _binding = null;
         }
     }
 
@@ -65,6 +66,8 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //私有的初始化Databinding和ViewModel方法
+        initViewDataBinding();
 
         //私有的ViewModel与View的契约事件回调逻辑
         registorUIChangeLiveDataCallBack();
@@ -73,31 +76,30 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         //页面事件监听的方法，一般用于ViewModel层转到View层的事件注册
         initViewObservable();
         //注册RxBus
-        baseViewModel.registerRxBus();
+        _viewModel.registerRxBus();
     }
 
     /**
      * 注入绑定
      */
-    private void initViewDataBinding(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.dataBinding = initAndGetViewDataBinding(inflater, container, savedInstanceState);
-        this.baseViewModel = initBaseViewModel();
+    private void initViewDataBinding() {
 
-        if (this.dataBinding == null) {
+        this._viewModel = setViewModel();
 
+        if (this._binding == null) {
             throw new IllegalArgumentException(getString(R.string.init_binding_error));
         }
 
-        if (this.baseViewModel == null) {
+        if (this._viewModel == null) {
             throw new IllegalArgumentException(getString(R.string.init_viewmodel_error));
         }
 
         viewModelId = initVariableId();
 
         //关联ViewModel
-        this.dataBinding.setVariable(viewModelId, baseViewModel);
+        this._binding.setVariable(viewModelId, _viewModel);
         //支持LiveData绑定xml，数据改变，UI自动会更新
-        this.dataBinding.setLifecycleOwner(this);
+        this._binding.setLifecycleOwner(this);
     }
 
     /**
@@ -106,21 +108,21 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     //注册ViewModel与View的契约UI回调事件
     protected void registorUIChangeLiveDataCallBack() {
         //加载对话框显示
-        baseViewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
+        _viewModel.getUC().getShowDialogEvent().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String title) {
                 showDialog(title);
             }
         });
         //加载对话框消失
-        baseViewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
+        _viewModel.getUC().getDismissDialogEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 dismissDialog();
             }
         });
         //跳入新页面
-        baseViewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        _viewModel.getUC().getStartActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 Class<?> clz = (Class<?>) params.get(ParameterField.CLASS);
@@ -129,7 +131,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
             }
         });
         //跳入ContainerActivity
-        baseViewModel.getUC().getStartContainerActivityEvent().observe(this, new Observer<Map<String, Object>>() {
+        _viewModel.getUC().getStartContainerActivityEvent().observe(this, new Observer<Map<String, Object>>() {
             @Override
             public void onChanged(@Nullable Map<String, Object> params) {
                 String canonicalName = (String) params.get(ParameterField.CANONICAL_NAME);
@@ -138,14 +140,14 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
             }
         });
         //关闭界面
-        baseViewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
+        _viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 getActivity().finish();
             }
         });
         //关闭上一层
-        baseViewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
+        _viewModel.getUC().getOnBackPressedEvent().observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void v) {
                 getActivity().onBackPressed();
@@ -230,8 +232,8 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
 
     //刷新布局
     public void refreshLayout() {
-        if (baseViewModel != null) {
-            dataBinding.setVariable(viewModelId, baseViewModel);
+        if (_viewModel != null) {
+            _binding.setVariable(viewModelId, _viewModel);
         }
     }
 
@@ -248,9 +250,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
      */
     public abstract int initVariableId();
 
-    protected abstract ViewDataBinding initAndGetViewDataBinding(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+    public abstract int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
 
-    protected abstract BaseViewModel initBaseViewModel();
+    protected abstract BaseViewModel setViewModel();
 
     @Override
     public void initData() {

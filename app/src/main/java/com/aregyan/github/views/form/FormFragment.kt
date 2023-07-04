@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -22,36 +20,31 @@ import java.util.*
 class FormFragment : BaseFragment() {
 
     private val viewModel: FormViewModel by viewModels()
+    private val binding get() = _binding as FragmentFormBinding
 
-    private var _binding: FragmentFormBinding? = null
-    private val binding get() = _binding!!
+    override fun initVariableId(): Int {
+        return BR.viewModel
+    }
+
+    override fun initContentView(
+        inflater: LayoutInflater?,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): Int {
+        return R.layout.fragment_form
+    }
+
+    override fun setViewModel(): FormViewModel {
+        return viewModel
+    }
 
     private var entity: FormEntity? = FormEntity()
-
     override fun initParam() {
         //获取列表传入的实体
         val mBundle = arguments
         if (mBundle != null) {
             entity = mBundle.getParcelable("entity")
         }
-    }
-
-    override fun initVariableId(): Int {
-        return BR.viewModel
-    }
-
-    override fun initAndGetViewDataBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): ViewDataBinding? {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_form, container, false);
-        return _binding
-    }
-
-
-    override fun initBaseViewModel(): FormViewModel {
-        return viewModel
     }
 
     override fun initData() {

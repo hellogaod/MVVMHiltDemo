@@ -7,7 +7,6 @@ import com.aregyan.github.views.network.NetWorkFragment
 import com.aregyan.github.views.rv_multi.MultiRecycleViewFragment
 import com.aregyan.github.views.tab_bar.activity.TabBarActivity
 import com.aregyan.github.views.viewpager.ViewPagerActivity
-import com.aregyan.github.views.vp_frg.ViewPagerGroupFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
@@ -45,7 +44,7 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //ViewPager+Fragment
     var viewPagerGroupBindingClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { startContainerActivity(ViewPagerGroupFragment::class.java.getCanonicalName()) })
+        BindingCommand<Any?>(BindingAction { /*startContainerActivity(ViewPagerGroupFragment::class.java.getCanonicalName())*/ })
 
     //表单提交点击事件
     var formSbmClick: BindingCommand<*> =

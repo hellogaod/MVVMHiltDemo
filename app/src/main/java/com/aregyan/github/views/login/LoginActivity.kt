@@ -1,10 +1,10 @@
 package com.aregyan.github.views.login
 
+import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import androidx.activity.viewModels
 import androidx.annotation.Nullable
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.aregyan.github.BR
 import com.aregyan.github.R
@@ -16,18 +16,13 @@ import me.goldze.mvvmhabit.base.view.BaseActivity
 class LoginActivity : BaseActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
-
-    private var _binding: ActivityLoginBinding? = null
-    private val binding get() = _binding!!
-
-    override fun initAndGetViewDataBinding(): ActivityLoginBinding? {
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        return _binding
+    private val binding get() = _binding as ActivityLoginBinding
+    override fun initContentView(savedInstanceState: Bundle?): Int {
+        return R.layout.activity_login
     }
-    override fun initBaseViewModel(): LoginViewModel {
+    override fun setViewModel(): LoginViewModel {
         return viewModel
     }
-
     override fun initVariableId(): Int {
         return BR.viewModel
     }

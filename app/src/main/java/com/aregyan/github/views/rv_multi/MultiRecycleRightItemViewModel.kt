@@ -15,6 +15,6 @@ class MultiRecycleRightItemViewModel(multiRecycleViewModel: MultiRecycleViewMode
     var itemClick: BindingCommand<*> = BindingCommand<Any?>(BindingAction { //拿到position
         val position: Int =
             (viewModel as MultiRecycleViewModel).observableList.indexOf(this@MultiRecycleRightItemViewModel)
-        ToastUtils.showShort("position：$position")
+        ToastUtils.showToast("position：$position")
     })
 }

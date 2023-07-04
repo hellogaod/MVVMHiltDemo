@@ -47,6 +47,6 @@ class NetWorkItemViewModel (networkViewModel:NetWorkViewModel, itemEntity: Netwo
         BindingCommand<Any?>(BindingAction { //以前是使用Messenger发送事件，在NetWorkViewModel中完成删除逻辑
 //            Messenger.getDefault().send(NetWorkItemViewModel.this, NetWorkViewModel.TOKEN_NETWORKVIEWMODEL_DELTE_ITEM);
             //现在ItemViewModel中存在ViewModel引用，可以直接拿到LiveData去做删除
-            ToastUtils.showShort(entity.get()?.getName())
+            ToastUtils.showToast(entity.get()?.getName())
         })
 }
