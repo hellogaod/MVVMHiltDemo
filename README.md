@@ -101,7 +101,5 @@
 
 ## （十） ViewPagerGroupFragment继承BasePagerFragment，可以重新写一下。而且还报错。
 
-## （十一） oom问题解决
-
 ## （十二） 
   

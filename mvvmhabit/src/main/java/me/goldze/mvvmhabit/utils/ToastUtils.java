@@ -12,7 +12,7 @@ import androidx.annotation.DrawableRes;
 import com.example.mvvmhabit.R;
 
 /**
- * 吐司工具类
+ * 吐司工具类:为了避免Toast出现OOM，所以这里不要使用全局Toast，直接在static方法中生成一个Toast对象即可。
  */
 public class ToastUtils {
 
@@ -21,8 +21,7 @@ public class ToastUtils {
     }
 
     private static Context context;
-    // Toast对象
-    private static Toast toast;
+
     // 文字显示的颜色
     private static int messageColor = 0;
 
@@ -88,18 +87,8 @@ public class ToastUtils {
             );
         }
 
-        cancel();
+        Toast toast = Toast.makeText(context, massage, duration);
 
-
-       /* SpannableString spannableString = new SpannableString(massage);
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(ContextCompat.getColor(context, messageColor));
-        spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-        if (toast == null) {
-            toast = Toast.makeText(context, massage, duration);
-        } else {
-            toast.setText(massage);
-            toast.setDuration(duration);
-        }
         // 设置显示的背景
         View view = toast.getView();
 
@@ -124,17 +113,8 @@ public class ToastUtils {
             }
         }
 
-        toast.show();
-    }
 
-    /**
-     * 在UI界面隐藏或者销毁前取消Toast显示
-     */
-    public static void cancel() {
-        if (toast != null) {
-            toast.cancel();
-            toast = null;
-        }
+        toast.show();
     }
 
     private static void illegalException() {
