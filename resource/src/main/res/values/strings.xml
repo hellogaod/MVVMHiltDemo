@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">MVVMHiltDemo</string>
     <string name="init_viewmodel_error">viewmodel没有被初始化，请初始化viewmodel</string>
 
     <string name="init_binding_error">binding没有被初始化，请初始化binding</string>

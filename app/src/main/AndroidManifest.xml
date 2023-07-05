@@ -28,6 +28,10 @@
         </activity>
 
         <activity
+            android:name="com.aregyan.github.views.base.activity.ContainerActivity"
+            android:configChanges="orientation|keyboardHidden"></activity>
+
+        <activity
             android:name="com.aregyan.github.MainActivity"
             android:configChanges="orientation|keyboardHidden"></activity>
 

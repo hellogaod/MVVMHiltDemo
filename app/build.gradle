@@ -58,7 +58,6 @@ dependencies {
     implementation rootProject.ext.support["kotlinxCoroutines"]
     implementation rootProject.ext.support["kotlinxCoroutinesAndroid"]
 
-
     implementation rootProject.ext.dependencies["bottomTab"]
 
     implementation rootProject.ext.dependencies["gson"]

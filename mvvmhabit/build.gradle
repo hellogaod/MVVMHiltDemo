@@ -84,4 +84,6 @@ dependencies {
 
     api rootProject.ext.dependencies["tkrefreshlayout"]
 
+    implementation project(path: ':resource')
+
 }

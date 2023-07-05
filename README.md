@@ -73,7 +73,6 @@
 
 # 二 不满意的地方
 
-
 ## 已解答（二） viewmodel和view之间使用信息传递需不需要更改
 
       viewModel.requestCameraPermissions.observe(this, object : Observer<Boolean?> {
@@ -84,9 +83,9 @@
 
 答：这里很满意，不需要修改
 
-## （三） 改成多模块的di ： view + data + mvvmhabit
+## （三） 改成多模块的di ： view + data + mvvmhabit + 资源
 
-新建一个view，试一下多模块
+答：hilt完全支持多模块开发
 
 ## （四）Rxjava是否还需要？
 
@@ -100,7 +99,7 @@
 
 ## 已解答（九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
 
-  activity最好放在一起，否则会非常麻烦。
+activity容器必须能让子fragment找到，否则肯定报错。
 
 ## （十） ViewPagerGroupFragment继承BasePagerFragment，可以重新写一下。而且还报错。
 

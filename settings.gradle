@@ -2,3 +2,4 @@ rootProject.name = "Android-MVVM-Hilt-Demo"
 include ':app'
 include ':mvvmhabit'
 include ':data'
+include ':resource'
