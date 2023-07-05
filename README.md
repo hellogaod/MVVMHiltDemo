@@ -101,5 +101,6 @@ data模块提供数据，主要是给viewmodel提供仓库，仓库获取数据�
 该模块下主要一些抽离公共信息、常用工具类。
 
 # 总结
-
 当前项目采用的都是常规性架构，遇到不懂的，一定要先了解清楚，磨刀不误砍柴工。
+
+差点忘了贴自己的[MVVMhiltDemo](https://github.com/hellogaod/MVVMHiltDemo/tree/main)项目地址
