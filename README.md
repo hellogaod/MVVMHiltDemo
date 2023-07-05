@@ -86,6 +86,8 @@
 
 ## （三） 改成多模块的di ： view + data + mvvmhabit
 
+新建一个view，试一下多模块
+
 ## （四）Rxjava是否还需要？
 
 ## （五）文件下载里面的DownLoadManager和Retrofit对象改成di，并且http写到。。。

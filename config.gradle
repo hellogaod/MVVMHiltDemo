@@ -42,7 +42,7 @@ ext {
             "kotlinxCoroutines"       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions["coroutines_version"]}",
             "kotlinxCoroutinesAndroid": "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions["coroutines_version"]}",
 
-            'junit'                   : "junit:junit:${versions["junit-version"]}",
+
     ]
 
     //androidx插件
@@ -59,6 +59,13 @@ ext {
             // optional - Kotlin Extensions and Coroutines support for Room
             "roomKtx"              : "androidx.room:room-ktx:${versions["room_version"]}",
             "recyclerview"         : "androidx.recyclerview:recyclerview:1.1.0",
+    ]
+
+    //测试
+    test = [
+            'junit'           : "junit:junit:${versions["junit-version"]}",
+            'androidxJunit'   : 'androidx.test.ext:junit:1.1.3',
+            'androidxEspresso': 'androidx.test.espresso:espresso-core:3.4.0',
     ]
 
     //依赖第三方配置
