@@ -9,12 +9,11 @@ import androidx.lifecycle.Observer
 import com.aregyan.github.BR
 import com.aregyan.github.R
 import com.aregyan.github.databinding.ActivityDemoBinding
+import com.aregyan.github.views.base.activity.BaseActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.functions.Consumer
-import com.aregyan.github.views.base.activity.BaseActivity
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
-import me.goldze.mvvmhabit.http.DownLoadManager
 import me.goldze.mvvmhabit.http.download.ProgressCallBack
 import me.goldze.mvvmhabit.utils.ToastUtils
 import okhttp3.ResponseBody
@@ -32,7 +31,7 @@ class DemoActivity : BaseActivity() {
     }
 
     override fun initContentView(savedInstanceState: Bundle?): Int {
-        return  R.layout.activity_demo
+        return R.layout.activity_demo
     }
 
     override fun setViewModel(): BaseViewModel {
@@ -80,8 +79,10 @@ class DemoActivity : BaseActivity() {
         progressDialog.setTitle("正在下载...")
         progressDialog.setCancelable(false)
         progressDialog.show()
-        DownLoadManager.getInstance()
-            .load(url, object : ProgressCallBack<ResponseBody?>(destFileDir, destFileName) {
+
+        viewModel.downLoadManager?.load(
+            url,
+            object : ProgressCallBack<ResponseBody?>(destFileDir, destFileName) {
                 override fun onStart() {
                     super.onStart()
                 }

@@ -9,7 +9,7 @@ import me.goldze.mvvmhabit.utils.Utils
 import timber.log.Timber
 
 @HiltAndroidApp
-class Application : BaseApplication() {
+class MyApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()

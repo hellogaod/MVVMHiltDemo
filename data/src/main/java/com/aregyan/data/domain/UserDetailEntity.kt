@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UserDetails(
+data class UserDetailEntity(
     val user: String? = "",
     val avatar: String? = "",
     val name: String? = "",

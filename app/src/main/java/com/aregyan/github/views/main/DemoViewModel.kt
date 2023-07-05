@@ -1,7 +1,7 @@
 package com.aregyan.github.views.main
 
+import android.app.Application
 import android.os.Bundle
-import com.aregyan.data.domain.FormEntity
 import com.aregyan.github.MainActivity
 import com.aregyan.github.views.form.FormFragment
 import com.aregyan.github.views.network.NetWorkFragment
@@ -13,6 +13,7 @@ import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
 import me.goldze.mvvmhabit.binding.command.BindingCommand
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent
+import me.goldze.mvvmhabit.http.DownLoadManager
 import javax.inject.Inject
 
 
@@ -20,7 +21,7 @@ import javax.inject.Inject
  * Created by goldze on 2017/7/17.
  */
 @HiltViewModel
-class DemoViewModel @Inject constructor() : BaseViewModel() {
+class DemoViewModel @Inject constructor(val downLoadManager: DownLoadManager?, val application: Application) : BaseViewModel() {
     //使用Observable
     var requestCameraPermissions = SingleLiveEvent<Boolean>()
 
@@ -46,10 +47,6 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
     //ViewPager绑定
     var viewPagerBindingClick: BindingCommand<*> =
         BindingCommand<Any?>(BindingAction { startActivity(ViewPagerActivity::class.java) })
-
-    //ViewPager+Fragment
-    var viewPagerGroupBindingClick: BindingCommand<*> =
-        BindingCommand<Any?>(BindingAction { /*startContainerActivity(ViewPagerGroupFragment::class.java.getCanonicalName())*/ })
 
     //表单提交点击事件
     var formSbmClick: BindingCommand<*> =
@@ -80,7 +77,9 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //文件下载
     var fileDownLoadClick: BindingCommand<*> = BindingCommand<Any?>(BindingAction {
+
         loadUrlEvent.value =
             "http://gdown.baidu.com/data/wisegame/dc8a46540c7960a2/baidushoujizhushou_16798087.apk"
     })
+
 }

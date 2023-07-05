@@ -66,14 +66,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/gray"
-            android:text="ViewPager+Fragment"
-            binding:onClickCommand="@{viewModel.viewPagerGroupBindingClick}" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray"
             android:text="表单提交"
             android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.formSbmClick}" />

@@ -81,27 +81,29 @@
          }
       })
 
-答：这里很满意，不需要修改
+答：这里很满意，不需要修改。
 
-## （三） 改成多模块的di ： view + data + mvvmhabit + 资源
+## 已解答（三） 改成多模块的di ： view + data + mvvmhabit + 资源
 
-答：hilt完全支持多模块开发
+答：hilt完全支持多模块开发。
 
-## （四）Rxjava是否还需要？
+## 已解答（四）Rxjava是否还需要？
 
-## （五）文件下载里面的DownLoadManager和Retrofit对象改成di，并且http写到。。。
+答：肯定需要的。
+
+## 已解决（五）文件下载里面的DownLoadManager和Retrofit对象改成di，并且http写到。。。
 
 ## （六） viewAdapter重新整理一下，起码要认识全了（并且归类），因为要写文档，
 
-## （七）数据 网络请求数据，转换database数据，entity数据，改成这样类型的
+## 已解答（七）数据 网络请求数据，转换database数据，entity数据，改成这样类型的
 
-## （八） viewmodel中如何获取Context
+## 已解答（八） viewmodel中如何获取Context
+
+参考：DemoViewModel val application: Application
 
 ## 已解答（九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
 
 activity容器必须能让子fragment找到，否则肯定报错。
 
-## （十） ViewPagerGroupFragment继承BasePagerFragment，可以重新写一下。而且还报错。
-
-## （十二） 
+## （十二） jar包冲突，并且把各个模块的依赖重新整理一下。
   

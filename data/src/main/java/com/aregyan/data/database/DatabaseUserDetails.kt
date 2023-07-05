@@ -2,7 +2,7 @@ package com.aregyan.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.aregyan.data.domain.UserDetails
+import com.aregyan.data.domain.UserDetailEntity
 
 //表对象
 @Entity
@@ -16,8 +16,8 @@ data class DatabaseUserDetails constructor(
 )
 
 //bean对象
-fun DatabaseUserDetails.asDomainModel(): UserDetails {
-    return UserDetails(
+fun DatabaseUserDetails.asDomainModel(): UserDetailEntity {
+    return UserDetailEntity(
         user = user,
         avatar = avatar,
         name = name,
