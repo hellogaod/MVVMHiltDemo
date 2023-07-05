@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "aac.mvvmhilt.habit",
+  "variantName": "sitRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 110,
+      "versionName": "1.1.0",
+      "outputFile": "app-sit-V1.1.0-20230705-1647.apk"
+    }
+  ],
+  "elementType": "File"
+}

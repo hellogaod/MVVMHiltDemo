@@ -8,7 +8,7 @@ import com.aregyan.github.R
 import com.aregyan.github.databinding.FragmentViewpagerBinding
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import dagger.hilt.android.AndroidEntryPoint
-import com.aregyan.github.views.base.activity.BaseActivity
+import com.aregyan.github.views.base.BaseActivity
 import me.goldze.mvvmhabit.utils.ToastUtils
 
 

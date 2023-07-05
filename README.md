@@ -1,109 +1,105 @@
 # 前沿
 
-基于dagger-hilt、aac、hvvm-habit做的一套MVVM-hilt框架
+当前架构基于[dagger-hilt](https://github.com/aregpetrosyan/Android-MVVM-Boilerplate-Hilt)、[hvvm-habit](https://github.com/goldze/MVVMHabit)整合。
 
-参考文献：
+> 后面还会整合[aac](https://github.com/android/architecture-components-samples)框架中的代码
 
-1. https://github.com/aregpetrosyan/Android-MVVM-Boilerplate-Hilt
-2. https://github.com/goldze/MVVMHabit
-3. https://github.com/android/architecture-components-samples
+所以我只是一个代码搬运工。
 
-我这里的mvvmhilt架构是整合以上三个架构的，所以我只是一个代码搬运工。
+# 架构思路
+当前项目采用模块化开发，四个模块app、data、mvvmhabit、resource。
 
-# 一 架构思路
+1. app是宿主模块，并且存放view+viewmodel；
+2. data是数据层，主要在仓库中获取数据；
+3. mvvmhabit：一些基础类，和工具类；
+4. resource：所有的资源存放在当前模块中，但是使用要谨慎，命名要确定独一无二，否则资源容易被替换。
 
-## （一）.对象转换思想
+>确认一件事情，**dagger支持模块化开发**。当前dagger版本是2.38.1，因为我对当前版本源码深入学习过，用起来感觉安全感高点。
 
-1. network.model：表示从网络请求接受到数据对象，通过asDatabaseModel转换成表对象；
+[dagger](https://juejin.cn/post/7077740630367043598)、[hilt](https://juejin.cn/post/7248286946572550205)的使用参考。
 
-2. database：当前表示表对象存储于room，当前对象通过asDatabaseModel转换成bean对象；
+## （一）dagger
+	@AndroidEntryPoint
+	class LoginActivity : BaseActivity() {...}
+	
+	@HiltViewModel
+	class LoginViewModel @Inject constructor(private val demoRepository:DemoRepository) :
+	    BaseViewModel() {...}
 
-3. domain：viewmodel中使用的对象；
+如上代码所示，view和viewmodel之间使用dagger，如果viewmodel需要使用引入DemoRepository仓库：
 
-## （二）. suspend函数的使用
+	class DemoRepository @Inject constructor(
+	    private val demoApiService: DemoApiService
+	) 
 
-1. 学习参考资料：https://blog.yujinyan.me/posts/understanding-kotlin-suspend-functions/
+DemoRepository仓库中的DemoApiService由NetworkModule类中的provideDemoApiService方法提供，后面不在往下举例，可自行去查看。
 
-2. suspend demo：
+当前使用dagger非常显著的作用：**插拔**。通过dagger插入，依赖切换非常方便，简单。
 
-- （1）表示开启IO线程操作：
+> dagger对泛型的支持度非常不友好，所以我在mvvmhilt架构基础上把BaseActivity/BaseFragment泛型给去掉了。
 
-        init {
-              //表示切换线程去请求数据 
-              viewModelScope.launch(Dispatchers.IO) {
-                  userListRepository.refreshUserList()
-              }
-          }
-- （2）请求网络数据：
+## （二）app模块
 
-      suspend fun refreshUserList() {
-          try {
-               //表示异步http请求
-               val users = userListService.getUserList()
-               database.usersDao.insertAll(users.asDatabaseModel())
-          } catch (e: Exception) {
-               Timber.w(e)
-          }
-      }
-   
-       @GET("/repos/square/retrofit/stargazers")
-       suspend fun getUserList(): List<NetworkUserListItem>
+宿主模块，主要寄存view + viewmodel。
 
-- （3）更新ui：
+1.kotlin给我们提供了一个非常方便的suspend挂起函数。异步请求和线程切换的使用非常方便：
 
-      lifecycleScope.launch {
-        val posts = 🏹 retrofit.get<PostService>().fetchPosts();
-        // 由于在主线程，可以拿着 posts 更新 UI
-      }
+	private fun login() {
+	        if (TextUtils.isEmpty(userName.get())) {
+	            ToastUtils.showToast("请输入账号！")
+	            return;
+	        }
+	        if (TextUtils.isEmpty(password.get())) {
+	            ToastUtils.showToast("请输入密码！")
+	            return;
+	        }
+	
+	        viewModelScope.launch {
+	            showDialog()
+	            val todo = withContext(Dispatchers.IO) {
+	                demoRepository.login()
+	            }
+	
+	            todo.let {
+	                dismissDialog()
+	                userName.get()?.let { it -> demoRepository.saveUserName(it) }
+	                password.get()?.let { it -> demoRepository.savePassword(it) }
+	
+	                //进入DemoActivity页面
+	                startActivity(DemoActivity::class.java)
+	                //关闭页面
+	                finish()
+	            }
+	        }
+	    }
 
-3. 可观察对象
+>[suspend学习参考文章](https://blog.yujinyan.me/posts/understanding-kotlin-suspend-functions/)
 
-- （1）参考地址：https://www.jianshu.com/p/3c5ecc330f84
-- （2）当前案例：ObservableParcelable
+2.在viewmodel中使用比较多的是Observable Fields：
+- ObservableBoolean
+- ObservableByte
+- ObservableChar
+- ObservableShort
+- ObservableInt
+- ObservableLong
+- ObservableFloat
+- ObservableDouble
+- ObservableParcelable
+## （三） data模块
 
-      ObservableBoolean
-      ObservableByte
-      ObservableChar
-      ObservableShort
-      ObservableInt
-      ObservableLong
-      ObservableFloat
-      ObservableDouble
-      ObservableParcelable
+data模块提供数据，主要是给viewmodel提供仓库，仓库获取数据，当前架构提供了2中方式：
+1. 仓库直接从网络获取：登录后第一个（网络访问），注意改url地址：https://www.oschina.net/
+2. 仓库先拉去网络数据到room，再从room数据库获取数据：登录后最后一个（原先HILT的DEMO），注意改url地址：https://api.github.com/。
 
-# 二 不满意的地方
+当前数据模型有3种：
+1.  从网络拉取数据转换模型，在network.model包下；
+2.  将网络拉去数据转换成room模型，在database包下（如果不仅过room，当前模型不存在）；
+3.  repository仓库获取的主要是1和2模型下的数据，viewmodel会将其转换成domain包下的entity对象，view交互的也是该包下的模型数据。
 
-## 已解答（二） viewmodel和view之间使用信息传递需不需要更改
+## （四）mvvmhabit模块
 
-      viewModel.requestCameraPermissions.observe(this, object : Observer<Boolean?> {
-         override fun onChanged(@Nullable aBoolean: Boolean?) {
-          requestCameraPermissions()
-         }
-      })
+该模块下主要一些抽离公共信息、常用工具类。
 
-答：这里很满意，不需要修改。
+# 总结
 
-## 已解答（三） 改成多模块的di ： view + data + mvvmhabit + 资源
-
-答：hilt完全支持多模块开发。
-
-## 已解答（四）Rxjava是否还需要？
-
-答：肯定需要的。
-
-## 已解决（五）文件下载里面的DownLoadManager和Retrofit对象改成di，并且http写到。。。
-
-## （六） viewAdapter重新整理一下，起码要认识全了（并且归类），因为要写文档，
-
-## 已解答（七）数据 网络请求数据，转换database数据，entity数据，改成这样类型的
-
-## 已解答（八） viewmodel中如何获取Context
-
-参考：DemoViewModel val application: Application
-
-## 已解答（九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
-
-activity容器必须能让子fragment找到，否则肯定报错。
-
-## （十二） jar包冲突，并且把各个模块的依赖重新整理一下。
-  
+当前项目采用的都是常规性架构，遇到不懂的，一定要先了解清楚，磨刀不误砍柴工。

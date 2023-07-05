@@ -1,9 +1,10 @@
-package com.aregyan.github.views.base.activity;
+package com.aregyan.github.views.base;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.aregyan.github.views.base.activity.ContainerActivity;
 import com.example.mvvmhabit.R;
 
 import java.util.Map;

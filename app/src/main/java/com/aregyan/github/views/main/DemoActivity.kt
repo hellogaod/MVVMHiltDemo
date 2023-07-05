@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.aregyan.github.BR
 import com.aregyan.github.R
 import com.aregyan.github.databinding.ActivityDemoBinding
-import com.aregyan.github.views.base.activity.BaseActivity
+import com.aregyan.github.views.base.BaseActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.functions.Consumer

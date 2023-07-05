@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.aregyan.github.R;
+import com.aregyan.github.views.base.BaseFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

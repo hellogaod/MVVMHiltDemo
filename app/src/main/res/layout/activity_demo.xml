@@ -20,14 +20,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
-            android:text="原先hilt的demo(需要修改成mvvm-hilt的地址)"
-            android:textColor="@color/white"
-            binding:onClickCommand="@{viewModel.hiltOriginClick}" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/gray"
             android:text="网络访问(需要修改成mvvm-habit的地址)"
@@ -105,5 +97,15 @@
             android:text="文件下载"
             android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.fileDownLoadClick}" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray"
+            android:text="原先hilt的demo(需要修改成mvvm-hilt的地址)"
+            android:textColor="@color/white"
+            binding:onClickCommand="@{viewModel.hiltOriginClick}" />
+
     </LinearLayout>
 </layout>

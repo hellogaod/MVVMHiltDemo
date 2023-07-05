@@ -19,7 +19,7 @@ object DatabaseModule {
     fun provideAppDatabase(@ApplicationContext appContext: Context): UsersDatabase {
         return Room.databaseBuilder(
             appContext,
-            com.aregyan.data.database.UsersDatabase::class.java,
+            UsersDatabase::class.java,
             "Users"
         ).fallbackToDestructiveMigration().build()
     }

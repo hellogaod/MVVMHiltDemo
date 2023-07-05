@@ -1,5 +1,5 @@
 rootProject.name = "Android-MVVM-Hilt-Demo"
-include ':app'
-include ':mvvmhabit'
-include ':data'
-include ':resource'
+include ':app'//view+viewmodel
+include ':data'//data
+include ':mvvmhabit'//常用工具类
+include ':resource'//资源

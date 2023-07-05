@@ -19,6 +19,20 @@ android {
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
+
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'menhu'
+            keyPassword 'menhu888'
+            storeFile file('../mvvm.jks')
+            storePassword 'menhu888'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
     }
 
     buildTypes {
@@ -40,9 +54,42 @@ android {
         viewBinding true
     }
     namespace 'com.aregyan.github'
+
+    productFlavors {
+
+        /*sit环境*/
+        sit {
+            applicationId rootProject.ext.android.applicationId
+            versionCode 110
+            versionName "1.1.0"
+            buildConfigField "String", "ENVIRONMENT", '"sit"'
+        }
+
+        /*生成环境*/
+        product {
+            applicationId rootProject.ext.android.applicationId
+            versionCode 100
+            versionName "1.0.0"
+            buildConfigField "String", "ENVIRONMENT", '"product"'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def date = new Date()
+            def formattedDate = date.format('YYYYMMdd-HHmm')
+            if (outputFile != null && outputFileName.endsWith('.apk')) {
+                outputFileName = "app-${variant.productFlavors.get(0).name}-V${versionName}-${formattedDate}.apk"
+            }
+        }
+    }
 }
 
 dependencies {
+
+    testImplementation rootProject.ext.test["junit"]
+    androidTestImplementation rootProject.ext.test["androidxJunit"]
+    androidTestImplementation rootProject.ext.test["androidxEspresso"]
 
     implementation rootProject.ext.jetpack["coreKtx"]
     implementation rootProject.ext.jetpack["appcompat"]

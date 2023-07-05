@@ -19,7 +19,7 @@ ext {
             "moshi_version"     : '1.14.0',
             "room_version"      : '2.4.3',
             "nav_version"       : '2.5.3',//jetpack组件navigation插件以及navigation依赖库版本
-            "coroutines_version": '1.6.4',
+            "coroutines_version": '1.6.1',
             "glide_version"     : '4.14.2',
     ]
     //plugin插件配置
@@ -49,7 +49,7 @@ ext {
     jetpack = [
             "coreKtx"              : "androidx.core:core-ktx:1.9.0",
             "appcompat"            : "androidx.appcompat:appcompat:1.5.1",
-            "constraintlayout"     : 'androidx.constraintlayout:constraintlayout:2.1.4',
+            "constraintlayout"     : 'androidx.constraintlayout:constraintlayout:2.0.1',
             "navigationFragmentKtx": "androidx.navigation:navigation-fragment-ktx:${versions["nav_version"]}",
             "navigationUiKtx"      : "androidx.navigation:navigation-ui-ktx:${versions["nav_version"]}",
 

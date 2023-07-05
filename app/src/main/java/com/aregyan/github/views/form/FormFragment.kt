@@ -9,10 +9,9 @@ import androidx.databinding.Observable
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
-import com.aregyan.data.domain.FormEntity
 import com.aregyan.github.databinding.FragmentFormBinding
 import dagger.hilt.android.AndroidEntryPoint
-import com.aregyan.github.views.base.activity.BaseFragment
+import com.aregyan.github.views.base.BaseFragment
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils
 import java.util.*
 

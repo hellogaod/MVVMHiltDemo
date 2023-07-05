@@ -36,8 +36,8 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("https://api.github.com/")//mvvm-hilt的地址
-        //.baseUrl("https://www.oschina.net/")//mvvm-habit的地址
+        //.baseUrl("https://api.github.com/")//mvvm-hilt的地址
+        .baseUrl("https://www.oschina.net/")//mvvm-habit的地址
         .client(okHttpClient)
         .build()
 

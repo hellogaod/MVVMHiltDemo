@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
-import com.aregyan.data.network.model.NetworkDemoEntity
 import com.aregyan.github.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import com.aregyan.github.views.base.activity.BaseFragment
+import com.aregyan.github.views.base.BaseFragment
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 
 @AndroidEntryPoint

@@ -29,6 +29,20 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
     }
+
+    //强制依赖包版本
+    configurations.all {
+        resolutionStrategy{
+            force 'androidx.customview:customview:1.1.0'
+            force 'androidx.drawerlayout:drawerlayout:1.1.1'
+            force 'androidx.fragment:fragment:1.5.4'
+            force 'androidx.lifecycle:lifecycle-process:2.4.1'
+            force 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+            force 'com.google.android.material:material:1.7.0'
+            force 'com.squareup.moshi:moshi:1.14.0'
+            force 'junit:junit:4.13.2'
+        }
+    }
 }
 
 task clean(type: Delete) {

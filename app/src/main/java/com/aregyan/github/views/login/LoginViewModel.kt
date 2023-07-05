@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val demoRepository: com.aregyan.data.repository.DemoRepository) :
+class LoginViewModel @Inject constructor(private val demoRepository:DemoRepository) :
     BaseViewModel() {
 
     //用户名的绑定
