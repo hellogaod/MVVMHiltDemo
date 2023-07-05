@@ -9,7 +9,7 @@ import com.aregyan.github.R
 import com.aregyan.github.databinding.FragmentTabBar4Binding
 import com.aregyan.github.views.tab_bar.TabViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import me.goldze.mvvmhabit.base.view.BaseFragment
+import com.aregyan.github.views.base.activity.BaseFragment
 
 @AndroidEntryPoint
 class TabBar4Fragment : BaseFragment() {

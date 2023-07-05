@@ -9,7 +9,7 @@ import com.aregyan.github.R
 import com.aregyan.github.data.network.model.NetworkDemoEntity
 import com.aregyan.github.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import me.goldze.mvvmhabit.base.view.BaseFragment
+import com.aregyan.github.views.base.activity.BaseFragment
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 
 @AndroidEntryPoint

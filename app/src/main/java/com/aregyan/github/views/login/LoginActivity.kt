@@ -10,7 +10,7 @@ import com.aregyan.github.BR
 import com.aregyan.github.R
 import com.aregyan.github.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
-import me.goldze.mvvmhabit.base.view.BaseActivity
+import com.aregyan.github.views.base.activity.BaseActivity
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {

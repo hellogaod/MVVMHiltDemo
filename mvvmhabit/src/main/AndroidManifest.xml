@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application android:usesCleartextTraffic="true">
         <activity
-            android:name="com.aregyan.github.views.ContainerActivity"
+            android:name="com.aregyan.github.views.base.activity.ContainerActivity"
             android:configChanges="orientation|keyboardHidden"></activity>
 
         <activity

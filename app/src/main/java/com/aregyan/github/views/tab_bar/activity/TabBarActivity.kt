@@ -14,7 +14,7 @@ import com.aregyan.github.views.tab_bar.fragment.TabBar2Fragment
 import com.aregyan.github.views.tab_bar.fragment.TabBar3Fragment
 import com.aregyan.github.views.tab_bar.fragment.TabBar4Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import me.goldze.mvvmhabit.base.view.BaseActivity
+import com.aregyan.github.views.base.activity.BaseActivity
 import me.majiajie.pagerbottomtabstrip.NavigationController
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener
 

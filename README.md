@@ -74,13 +74,15 @@
 # 二 不满意的地方
 
 
-## （二） viewmodel和view之间使用信息传递需不需要更改
+## 已解答（二） viewmodel和view之间使用信息传递需不需要更改
 
       viewModel.requestCameraPermissions.observe(this, object : Observer<Boolean?> {
          override fun onChanged(@Nullable aBoolean: Boolean?) {
           requestCameraPermissions()
          }
       })
+
+答：这里很满意，不需要修改
 
 ## （三） 改成多模块的di ： view + data + mvvmhabit
 
@@ -94,10 +96,9 @@
 
 ## （八） viewmodel中如何获取Context
 
-## （九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
+## 已解答（九） activity好像不支持模块化开发，因为ContainerActivity必须和其他activity在同一个包下才可以用
 
-  应该有解决方案的，例如subComponent，可以一试
-  viewmodel也一样
+  activity最好放在一起，否则会非常麻烦。
 
 ## （十） ViewPagerGroupFragment继承BasePagerFragment，可以重新写一下。而且还报错。
 

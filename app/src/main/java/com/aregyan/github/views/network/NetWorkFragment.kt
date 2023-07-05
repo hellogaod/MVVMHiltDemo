@@ -8,7 +8,7 @@ import com.aregyan.github.BR
 import com.aregyan.github.R
 import com.aregyan.github.databinding.FragmentNetworkBinding
 import dagger.hilt.android.AndroidEntryPoint
-import me.goldze.mvvmhabit.base.view.BaseFragment
+import com.aregyan.github.views.base.activity.BaseFragment
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils
 import me.goldze.mvvmhabit.utils.ToastUtils
 

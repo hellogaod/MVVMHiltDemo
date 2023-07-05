@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
 import com.aregyan.github.databinding.FragmentMultiRvBinding
-import me.goldze.mvvmhabit.base.view.BaseFragment
+import com.aregyan.github.views.base.activity.BaseFragment
 
 class MultiRecycleViewFragment : BaseFragment(){
     private val viewModel: MultiRecycleViewModel by viewModels()

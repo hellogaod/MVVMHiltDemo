@@ -12,7 +12,7 @@ import com.aregyan.github.databinding.ActivityDemoBinding
 import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.functions.Consumer
-import me.goldze.mvvmhabit.base.view.BaseActivity
+import com.aregyan.github.views.base.activity.BaseActivity
 import me.goldze.mvvmhabit.base.viewmodel.BaseViewModel
 import me.goldze.mvvmhabit.http.DownLoadManager
 import me.goldze.mvvmhabit.http.download.ProgressCallBack

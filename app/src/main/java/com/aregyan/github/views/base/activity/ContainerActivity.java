@@ -1,4 +1,4 @@
-package com.aregyan.github.views;
+package com.aregyan.github.views.base.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.aregyan.github.R;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import me.goldze.mvvmhabit.base.view.BaseFragment;
 
 
 /**
@@ -52,8 +51,6 @@ public class ContainerActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
