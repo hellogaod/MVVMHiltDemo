@@ -1,4 +1,4 @@
-package com.aregyan.github.data.domain
+package com.aregyan.data.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

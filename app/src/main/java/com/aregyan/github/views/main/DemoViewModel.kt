@@ -1,7 +1,8 @@
 package com.aregyan.github.views.main
 
 import android.os.Bundle
-import com.aregyan.github.data.domain.FormEntity
+import com.aregyan.data.domain.FormEntity
+import com.aregyan.github.MainActivity
 import com.aregyan.github.views.form.FormFragment
 import com.aregyan.github.views.network.NetWorkFragment
 import com.aregyan.github.views.rv_multi.MultiRecycleViewFragment
@@ -25,6 +26,10 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //使用LiveData
     var loadUrlEvent = SingleLiveEvent<String>()
+
+    //原先hilt的demo
+    var hiltOriginClick: BindingCommand<*> =
+        BindingCommand<Any?>(BindingAction { startActivity(MainActivity::class.java)  })
 
     //网络访问点击事件
     var netWorkClick: BindingCommand<*> =
@@ -52,7 +57,7 @@ class DemoViewModel @Inject constructor() : BaseViewModel() {
 
     //表单修改点击事件
     var formModifyClick: BindingCommand<*> = BindingCommand<Any?>(BindingAction { //模拟一个修改的实体数据
-         val entity = FormEntity()
+         val entity = com.aregyan.data.domain.FormEntity()
          entity.setId("12345678")
          entity.setName("goldze")
          entity.setSex("1")

@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'//当前模块可以使用kotlin语言
+    id 'kotlin-kapt'//当前模块可以使用kapt替代annotationProcessor
+    id 'dagger.hilt.android.plugin'//当前模块使用hilt插件
+    id 'kotlin-parcelize'//当前模块Kotlin使用Parcelable序列化类
 }
 
 android {
@@ -35,6 +39,27 @@ dependencies {
     testImplementation rootProject.ext.test["junit"]
     androidTestImplementation rootProject.ext.test["androidxJunit"]
     androidTestImplementation rootProject.ext.test["androidxEspresso"]
+    
+    // Timber
+    api rootProject.ext.dependencies["timber"]
 
+    //Room
+    implementation rootProject.ext.jetpack["roomRuntime"]
+    kapt rootProject.ext.jetpack["roomCompiler"]
+    implementation rootProject.ext.jetpack["roomKtx"]
+
+    implementation rootProject.ext.support["material"]
+
+    // Hilt
+    implementation rootProject.ext.dependencies["hiltAndroid"]
+    kapt rootProject.ext.dependencies["hiltCompiler"]
+
+    // Moshi
+    kapt rootProject.ext.dependencies["moshiKotlinCodeGen"]
+    implementation rootProject.ext.dependencies["moshi"]
+    implementation rootProject.ext.dependencies["moshiKotlin"]
+    implementation rootProject.ext.dependencies["moshiAdapters"]
+
+    implementation project(path: ':mvvmhabit')
 
 }

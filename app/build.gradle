@@ -50,29 +50,14 @@ dependencies {
     implementation rootProject.ext.jetpack["navigationFragmentKtx"]
     implementation rootProject.ext.jetpack["navigationUiKtx"]
 
-    //Room
-    implementation rootProject.ext.jetpack["roomRuntime"]
-    kapt rootProject.ext.jetpack["roomCompiler"]
-    implementation rootProject.ext.jetpack["roomKtx"]
-
-    implementation rootProject.ext.support["material"]
-
     // Hilt
     implementation rootProject.ext.dependencies["hiltAndroid"]
     kapt rootProject.ext.dependencies["hiltCompiler"]
-
-    // Moshi
-    kapt rootProject.ext.dependencies["moshiKotlinCodeGen"]
-    implementation rootProject.ext.dependencies["moshi"]
-    implementation rootProject.ext.dependencies["moshiKotlin"]
-    implementation rootProject.ext.dependencies["moshiAdapters"]
 
     // Coroutines
     implementation rootProject.ext.support["kotlinxCoroutines"]
     implementation rootProject.ext.support["kotlinxCoroutinesAndroid"]
 
-    // Timber
-    implementation rootProject.ext.dependencies["timber"]
 
     implementation rootProject.ext.dependencies["bottomTab"]
 
@@ -81,6 +66,12 @@ dependencies {
     // Leak Canary
     debugImplementation rootProject.ext.dependencies["leakcanary"]
 
+    //Room
+    implementation rootProject.ext.jetpack["roomRuntime"]
+    kapt rootProject.ext.jetpack["roomCompiler"]
+    implementation rootProject.ext.jetpack["roomKtx"]
+
+    implementation project(path: ':data')
     implementation project(path: ':mvvmhabit')
 
     //recyclerview的databinding套装

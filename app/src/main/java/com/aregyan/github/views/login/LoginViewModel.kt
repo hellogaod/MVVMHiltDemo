@@ -5,7 +5,7 @@ import android.view.View
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
-import com.aregyan.github.data.repository.DemoRepository
+import com.aregyan.data.repository.DemoRepository
 import com.aregyan.github.views.main.DemoActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val demoRepository: DemoRepository) :
+class LoginViewModel @Inject constructor(private val demoRepository: com.aregyan.data.repository.DemoRepository) :
     BaseViewModel() {
 
     //用户名的绑定

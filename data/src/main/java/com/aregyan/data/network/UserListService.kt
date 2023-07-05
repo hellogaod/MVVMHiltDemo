@@ -1,6 +1,6 @@
-package com.aregyan.github.data.network
+package com.aregyan.data.network
 
-import com.aregyan.github.data.network.model.NetworkUserListItem
+import com.aregyan.data.network.model.NetworkUserListItem
 import retrofit2.http.GET
 
 interface UserListService {

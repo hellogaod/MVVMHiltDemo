@@ -21,6 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray"
+            android:text="原先hilt的demo"
+            android:textColor="@color/white"
+            binding:onClickCommand="@{viewModel.hiltOriginClick}" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray"
             android:text="网络访问"
             android:textColor="@color/white"
             binding:onClickCommand="@{viewModel.netWorkClick}" />

@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.aregyan.github.data.domain.UserListItem" />
+            type="com.aregyan.data.domain.UserListItem" />
 
         <variable
             name="clickListener"

@@ -1,9 +1,9 @@
 package com.aregyan.github.di
 
 import com.aregyan.github.BuildConfig
-import com.aregyan.github.data.network.DemoApiService
-import com.aregyan.github.data.network.UserDetailsService
-import com.aregyan.github.data.network.UserListService
+import com.aregyan.data.network.DemoApiService
+import com.aregyan.data.network.UserDetailsService
+import com.aregyan.data.network.UserListService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module

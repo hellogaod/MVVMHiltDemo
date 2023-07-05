@@ -1,8 +1,8 @@
-package com.aregyan.github.data.database
+package com.aregyan.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.aregyan.github.data.domain.UserListItem
+import com.aregyan.data.domain.UserListItem
 
 @Entity
 data class DatabaseUserListItem constructor(

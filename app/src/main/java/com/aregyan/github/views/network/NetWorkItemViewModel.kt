@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.databinding.ObservableField
 import com.aregyan.github.R
-import com.aregyan.github.data.network.model.NetworkDemoEntity
+import com.aregyan.data.network.model.NetworkDemoEntity
 import com.aregyan.github.views.network.details.DetailFragment
 import me.goldze.mvvmhabit.base.viewmodel.ItemViewModel
 import me.goldze.mvvmhabit.binding.command.BindingAction
@@ -14,9 +14,9 @@ import me.goldze.mvvmhabit.utils.ToastUtils
 import me.goldze.mvvmhabit.utils.Utils
 
 
-class NetWorkItemViewModel (networkViewModel:NetWorkViewModel, itemEntity: NetworkDemoEntity.ItemsEntity): ItemViewModel(networkViewModel) {
+class NetWorkItemViewModel (networkViewModel:NetWorkViewModel, itemEntity: com.aregyan.data.network.model.NetworkDemoEntity.ItemsEntity): ItemViewModel(networkViewModel) {
 
-    var entity: ObservableField<NetworkDemoEntity.ItemsEntity> = ObservableField<NetworkDemoEntity.ItemsEntity>(itemEntity)
+    var entity: ObservableField<com.aregyan.data.network.model.NetworkDemoEntity.ItemsEntity> = ObservableField<com.aregyan.data.network.model.NetworkDemoEntity.ItemsEntity>(itemEntity)
     var drawableImg: Drawable? =  ContextCompat.getDrawable(Utils.getContext(), R.mipmap.ic_launcher)
 
 

@@ -1,10 +1,10 @@
-package com.aregyan.github.data.repository
+package com.aregyan.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.aregyan.github.data.network.DemoApiService
-import com.aregyan.github.data.network.model.BaseResponse
-import com.aregyan.github.data.network.model.NetworkDemoEntity
+import com.aregyan.data.network.DemoApiService
+import com.aregyan.data.network.model.BaseResponse
+import com.aregyan.data.network.model.NetworkDemoEntity
 import me.goldze.mvvmhabit.utils.SPUtils
 import javax.inject.Inject
 

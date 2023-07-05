@@ -1,4 +1,4 @@
-package com.aregyan.github.data.database
+package com.aregyan.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

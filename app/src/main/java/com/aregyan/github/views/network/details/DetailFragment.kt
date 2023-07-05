@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
-import com.aregyan.github.data.network.model.NetworkDemoEntity
+import com.aregyan.data.network.model.NetworkDemoEntity
 import com.aregyan.github.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.aregyan.github.views.base.activity.BaseFragment
@@ -17,7 +17,7 @@ class DetailFragment : BaseFragment() {
 
     private val viewModel: DetailViewModel by viewModels()
     private val binding get() = _binding as FragmentDetailBinding
-    private var entity: NetworkDemoEntity.ItemsEntity? = null
+    private var entity: com.aregyan.data.network.model.NetworkDemoEntity.ItemsEntity? = null
 
     override fun initParam() {
         //获取列表传入的实体

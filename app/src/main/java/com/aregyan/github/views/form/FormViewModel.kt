@@ -3,8 +3,8 @@ package com.aregyan.github.views.form
 import android.text.TextUtils
 import android.view.View
 import androidx.databinding.ObservableBoolean
-import com.aregyan.github.data.domain.FormEntity
-import com.aregyan.github.data.domain.SpinnerItemData
+import com.aregyan.data.domain.FormEntity
+import com.aregyan.data.domain.SpinnerItemData
 import com.aregyan.github.views.base.viewmodel.ToolbarViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FormViewModel @Inject constructor() : ToolbarViewModel() {
-    var entity: FormEntity? = null
+    var entity: com.aregyan.data.domain.FormEntity? = null
 
     var sexItemDatas: ArrayList<IKeyAndValue>? = null
     var entityJsonLiveData = SingleLiveEvent<String>()
@@ -41,8 +41,8 @@ class FormViewModel @Inject constructor() : ToolbarViewModel() {
         //sexItemDatas 一般可以从本地Sqlite数据库中取出数据字典对象集合，让该对象实现IKeyAndValue接口
         //sexItemDatas 一般可以从本地Sqlite数据库中取出数据字典对象集合，让该对象实现IKeyAndValue接口
         sexItemDatas = ArrayList()
-        sexItemDatas?.add(SpinnerItemData("男", "1"))
-        sexItemDatas?.add(SpinnerItemData("女", "2"))
+        sexItemDatas?.add(com.aregyan.data.domain.SpinnerItemData("男", "1"))
+        sexItemDatas?.add(com.aregyan.data.domain.SpinnerItemData("女", "2"))
     }
 
     /**
@@ -64,7 +64,7 @@ class FormViewModel @Inject constructor() : ToolbarViewModel() {
         ToastUtils.showToast("更多")
     }
 
-    fun setFormEntity(entity: FormEntity?) {
+    fun setFormEntity(entity: com.aregyan.data.domain.FormEntity?) {
         if (this.entity == null) {
             this.entity = entity
         }

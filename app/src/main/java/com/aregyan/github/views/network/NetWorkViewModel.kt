@@ -5,7 +5,7 @@ import androidx.databinding.ObservableList
 import androidx.lifecycle.viewModelScope
 import com.aregyan.github.BR
 import com.aregyan.github.R
-import com.aregyan.github.data.repository.DemoRepository
+import com.aregyan.data.repository.DemoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 import javax.inject.Inject
 
 @HiltViewModel
-class NetWorkViewModel @Inject constructor(private val demoRepository: DemoRepository) :
+class NetWorkViewModel @Inject constructor(private val demoRepository: com.aregyan.data.repository.DemoRepository) :
     BaseViewModel() {
     var deleteItemLiveData = SingleLiveEvent<NetWorkItemViewModel>()
 

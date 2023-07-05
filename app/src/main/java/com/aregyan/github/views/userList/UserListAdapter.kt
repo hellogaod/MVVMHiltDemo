@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aregyan.github.databinding.ItemUsersListBinding
-import com.aregyan.github.data.domain.UserListItem
+import com.aregyan.data.domain.UserListItem
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject
 
 @FragmentScoped
 class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
-    ListAdapter<UserListItem, UsersListAdapter.ViewHolder>(UsersListDiffCallback()) {
+    ListAdapter<com.aregyan.data.domain.UserListItem, UsersListAdapter.ViewHolder>(UsersListDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -26,7 +26,7 @@ class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
     class ViewHolder private constructor(private val binding: ItemUsersListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: UserListItem, clickListener: ClickListener) {
+        fun bind(item: com.aregyan.data.domain.UserListItem, clickListener: ClickListener) {
             binding.data = item
             binding.executePendingBindings()
             binding.clickListener = clickListener
@@ -42,13 +42,13 @@ class UsersListAdapter @Inject constructor(val clickListener: ClickListener) :
     }
 }
 
-class UsersListDiffCallback : DiffUtil.ItemCallback<UserListItem>() {
+class UsersListDiffCallback : DiffUtil.ItemCallback<com.aregyan.data.domain.UserListItem>() {
 
-    override fun areItemsTheSame(oldItem: UserListItem, newItem: UserListItem): Boolean {
+    override fun areItemsTheSame(oldItem: com.aregyan.data.domain.UserListItem, newItem: com.aregyan.data.domain.UserListItem): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: UserListItem, newItem: UserListItem): Boolean {
+    override fun areContentsTheSame(oldItem: com.aregyan.data.domain.UserListItem, newItem: com.aregyan.data.domain.UserListItem): Boolean {
         return oldItem == newItem
     }
 
@@ -56,9 +56,9 @@ class UsersListDiffCallback : DiffUtil.ItemCallback<UserListItem>() {
 
 class ClickListener @Inject constructor() {
 
-    var onItemClick: ((UserListItem) -> Unit)? = null
+    var onItemClick: ((com.aregyan.data.domain.UserListItem) -> Unit)? = null
 
-    fun onClick(data: UserListItem) {
+    fun onClick(data: com.aregyan.data.domain.UserListItem) {
         onItemClick?.invoke(data)
     }
 }

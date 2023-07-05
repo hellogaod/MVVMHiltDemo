@@ -1,6 +1,6 @@
-package com.aregyan.github.data.network
+package com.aregyan.data.network
 
-import com.aregyan.github.data.network.model.NetworkUserDetails
+import com.aregyan.data.network.model.NetworkUserDetails
 import retrofit2.http.GET
 import retrofit2.http.Path
 

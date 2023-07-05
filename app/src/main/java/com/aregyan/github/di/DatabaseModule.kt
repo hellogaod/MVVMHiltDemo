@@ -2,8 +2,8 @@ package com.aregyan.github.di
 
 import android.content.Context
 import androidx.room.Room
-import com.aregyan.github.data.database.UsersDao
-import com.aregyan.github.data.database.UsersDatabase
+import com.aregyan.data.database.UsersDao
+import com.aregyan.data.database.UsersDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +19,7 @@ object DatabaseModule {
     fun provideAppDatabase(@ApplicationContext appContext: Context): UsersDatabase {
         return Room.databaseBuilder(
             appContext,
-            UsersDatabase::class.java,
+            com.aregyan.data.database.UsersDatabase::class.java,
             "Users"
         ).fallbackToDestructiveMigration().build()
     }

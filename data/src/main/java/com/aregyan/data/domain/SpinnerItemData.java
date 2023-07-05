@@ -1,4 +1,4 @@
-package com.aregyan.github.data.domain;
+package com.aregyan.data.domain;
 
 import me.goldze.mvvmhabit.binding.viewadapter.spinner.IKeyAndValue;
 

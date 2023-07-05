@@ -9,7 +9,7 @@ import androidx.databinding.Observable
 import androidx.fragment.app.viewModels
 import com.aregyan.github.BR
 import com.aregyan.github.R
-import com.aregyan.github.data.domain.FormEntity
+import com.aregyan.data.domain.FormEntity
 import com.aregyan.github.databinding.FragmentFormBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.aregyan.github.views.base.activity.BaseFragment
@@ -38,7 +38,7 @@ class FormFragment : BaseFragment() {
         return viewModel
     }
 
-    private var entity: FormEntity? = FormEntity()
+    private var entity: com.aregyan.data.domain.FormEntity? = com.aregyan.data.domain.FormEntity()
     override fun initParam() {
         //获取列表传入的实体
         val mBundle = arguments
